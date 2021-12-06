@@ -2,11 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.PrintWriter;
 
 public class TeacherGUI extends JComponent implements Runnable {
-    private  JButton login;
-    private  JButton createUser;
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new TeacherGUI());
@@ -18,6 +15,8 @@ public class TeacherGUI extends JComponent implements Runnable {
     }
 
     void menu() {
+
+        //teacher menu
         JFrame frame = new JFrame("Teacher Menu");
         Container content = frame.getContentPane();
 
@@ -27,6 +26,7 @@ public class TeacherGUI extends JComponent implements Runnable {
             public void actionPerformed(ActionEvent e) {
                 frame.dispose();
                 createCourse();
+                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             }
         });
 
@@ -36,6 +36,7 @@ public class TeacherGUI extends JComponent implements Runnable {
             public void actionPerformed(ActionEvent e) {
                 frame.dispose();
                 editCourse();
+                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             }
         });
 
@@ -45,6 +46,7 @@ public class TeacherGUI extends JComponent implements Runnable {
             public void actionPerformed(ActionEvent e) {
                 frame.dispose();
                 viewSubmissions();
+                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             }
         });
 
@@ -54,6 +56,7 @@ public class TeacherGUI extends JComponent implements Runnable {
             public void actionPerformed(ActionEvent e) {
                 frame.dispose();
                 editInformation();
+                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             }
         });
 
@@ -62,14 +65,10 @@ public class TeacherGUI extends JComponent implements Runnable {
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.dispose();
-                Logout();
+                logoutScreen();
+                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             }
         });
-
-
-        createUser = new JButton("Create User");
-//        createUser.addActionListener(actionListener);
-
         JPanel panel = new JPanel();
         panel.add(option1);
         panel.add(option2);
@@ -77,8 +76,7 @@ public class TeacherGUI extends JComponent implements Runnable {
         panel.add(option4);
         panel.add(option5);
         content.add(panel, BorderLayout.CENTER);
-
-        frame.setSize(400, 300);
+        frame.setSize(600, 600);
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setVisible(true);
@@ -103,7 +101,7 @@ public class TeacherGUI extends JComponent implements Runnable {
         panel.add(enter);
         content.add(panel, BorderLayout.CENTER);
 
-        frame.setSize(600, 400);
+        frame.setSize(600, 600);
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setVisible(true);
@@ -114,19 +112,13 @@ public class TeacherGUI extends JComponent implements Runnable {
         Container content = frame.getContentPane();
         JLabel question = new JLabel("Which course would you like to edit?");
         JTextField courseEdit = new JTextField(10);
-        JLabel passwordLabel = new JLabel("Password");
-        JTextField password = new JTextField(10);
         JButton enter = new JButton("Enter");
-
         JPanel panel = new JPanel();
         panel.add(question);
         panel.add(courseEdit);
-        panel.add(passwordLabel);
-        panel.add(password);
         panel.add(enter);
         content.add(panel, BorderLayout.CENTER);
-
-        frame.setSize(600, 400);
+        frame.setSize(600, 600);
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setVisible(true);
@@ -135,21 +127,15 @@ public class TeacherGUI extends JComponent implements Runnable {
     void viewSubmissions() {
         JFrame frame = new JFrame("View Submissions");
         Container content = frame.getContentPane();
-        JLabel question = new JLabel("Which course would you like to edit?");
+        JLabel question = new JLabel("Which course would you like to view submissions for?");
         JTextField courseEdit = new JTextField(10);
-        JLabel passwordLabel = new JLabel("Password");
-        JTextField password = new JTextField(10);
         JButton enter = new JButton("Enter");
-
         JPanel panel = new JPanel();
         panel.add(question);
         panel.add(courseEdit);
-        panel.add(passwordLabel);
-        panel.add(password);
         panel.add(enter);
         content.add(panel, BorderLayout.CENTER);
-
-        frame.setSize(600, 400);
+        frame.setSize(600, 600);
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setVisible(true);
@@ -158,49 +144,36 @@ public class TeacherGUI extends JComponent implements Runnable {
     void editInformation() {
         JFrame frame = new JFrame("Edit Information");
         Container content = frame.getContentPane();
-        JLabel question = new JLabel("Which course would you like to edit?");
-        JTextField courseEdit = new JTextField(10);
-        JLabel passwordLabel = new JLabel("Password");
-        JTextField password = new JTextField(10);
+        JLabel question = new JLabel("Choose which one to change");
+        JButton userName = new JButton("Username");
+        JButton password = new JButton("Password");
+        JButton deleteAccount = new JButton("Delete Account");
         JButton enter = new JButton("Enter");
-
         JPanel panel = new JPanel();
         panel.add(question);
-        panel.add(courseEdit);
-        panel.add(passwordLabel);
+        panel.add(userName);
         panel.add(password);
+        panel.add(deleteAccount);
         panel.add(enter);
         content.add(panel, BorderLayout.CENTER);
-
-        frame.setSize(600, 400);
+        frame.setSize(600, 600);
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setVisible(true);
     }
 
-    void Logout() {
+    void logoutScreen() {
         JFrame frame = new JFrame("Logout");
-        Container content = frame.getContentPane();
-        JLabel question = new JLabel("Which course would you like to edit?");
-        JTextField courseEdit = new JTextField(10);
-        JLabel passwordLabel = new JLabel("Password");
-        JTextField password = new JTextField(10);
-        JButton enter = new JButton("Enter");
-
+        JLabel message = new JLabel("Thank you for using the Quiz App");
         JPanel panel = new JPanel();
-        panel.add(question);
-        panel.add(courseEdit);
-        panel.add(passwordLabel);
-        panel.add(password);
-        panel.add(enter);
-        content.add(panel, BorderLayout.CENTER);
-
-        frame.setSize(600, 400);
+        panel.add(frame);
+        panel.add(message);
+        panel.add(panel, BorderLayout.CENTER);
+        frame.setSize(600, 600);
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setVisible(true);
     }
-
 
 
 }
