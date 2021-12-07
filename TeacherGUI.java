@@ -289,5 +289,4 @@ public class TeacherGUI extends JComponent implements Runnable {
         frame.setVisible(true);
     }
 
-
 }
