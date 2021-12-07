@@ -75,7 +75,7 @@ class ClientHandler extends Thread {
                             System.out.println("This is a teacher password");
                             line = line.substring(0, line.length() - 2);
                             String nameTaken = user.createName(loginInfo, user.getUsername(),false);
-                            if (nameTaken.equals("bad")) {
+                            if (nameTaken.equals("taken")) {
                                 dos.writeUTF("name taken");
                             } else {
                                 user.teacherPass(loginInfo,line,user.getUsername());
