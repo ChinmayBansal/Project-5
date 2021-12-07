@@ -31,13 +31,28 @@ public class ClientTest extends JComponent implements Runnable
         }
     }
 
-    public static synchronized String messageToServer(String message) throws IOException {
+    public static synchronized void messageToServer(String message) throws IOException {
+        // obtaining input and out streams
+        DataOutputStream dos = new DataOutputStream(s.getOutputStream());
+        while (message != null) {
+            try {
+                dos.writeUTF(message);
+                message = null;
+            } catch (Exception e) {
+                System.out.println("Message to server could not be sent");
+            }
+        }
+    }
+
+    public static synchronized String messageFromServer() throws IOException {
         // obtaining input and out streams
         while (true) {
             DataInputStream dis = new DataInputStream(s.getInputStream());
-            DataOutputStream dos = new DataOutputStream(s.getOutputStream());
-            dos.writeUTF(message);
-
+            try {
+                return dis.readUTF();
+            } catch (Exception e) {
+                System.out.println("Message to server could not be sent");
+            }
         }
     }
 
@@ -86,7 +101,7 @@ public class ClientTest extends JComponent implements Runnable
                 teacherButton.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        frame.dispose();
+                        frame.setVisible(false);
 
                         JFrame frame = new JFrame("Create User");
                         Container content = frame.getContentPane();
@@ -110,7 +125,14 @@ public class ClientTest extends JComponent implements Runnable
                             @Override
                             public void actionPerformed(ActionEvent e) {
                                 try {
-                                    messageToServer(enterTeacherUsername.getText());
+                                    messageToServer(enterTeacherUsername.getText()+"00");
+                                    messageToServer(enterTeacherPassword.getText()+"01");
+                                    String checkUsername = messageFromServer();
+                                    if (checkUsername.equals("name taken")) {
+                                        JOptionPane.showMessageDialog(null,
+                                                "Username taken", "Error",
+                                                JOptionPane.ERROR_MESSAGE);
+                                    }
                                 } catch (IOException ex) {
                                     ex.printStackTrace();
                                 }
@@ -124,4 +146,3 @@ public class ClientTest extends JComponent implements Runnable
     }
 
 }
-
