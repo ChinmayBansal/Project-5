@@ -3,21 +3,17 @@ import java.util.*;
 import java.net.*;
 
 // Server class
-public class ServerTest
-{
-    public static void main(String[] args) throws IOException
-    {
+public class ServerTest {
+    public static void main(String[] args) throws IOException {
         // server is listening on port 5056
         ServerSocket ss = new ServerSocket(4242);
 
         // running infinite loop for getting
         // client request
-        while (true)
-        {
+        while (true) {
             Socket s = null;
 
-            try
-            {
+            try {
                 // socket object to receive incoming client requests
                 s = ss.accept();
 
@@ -33,8 +29,7 @@ public class ServerTest
                 // Invoking the start() method
                 t.start();
 
-            }
-            catch (Exception e){
+            } catch (Exception e) {
                 s.close();
                 e.printStackTrace();
             }
@@ -43,42 +38,70 @@ public class ServerTest
 }
 
 // ClientHandler class
-class ClientHandler extends Thread
-{
+class ClientHandler extends Thread {
     final DataInputStream dis;
     final DataOutputStream dos;
     final Socket s;
 
 
     // Constructor
-    public ClientHandler(Socket s, DataInputStream dis, DataOutputStream dos)
-    {
+    public ClientHandler(Socket s, DataInputStream dis, DataOutputStream dos) {
         this.s = s;
         this.dis = dis;
         this.dos = dos;
     }
 
     @Override
-    public void run()
-    {
+    public void run() {
         Student student = new Student();
         User user = new User();
         Teacher teacher = new Teacher();
 
-        String received;
-        String received1;
         ArrayList<String> loginInfo = user.createFile();
-        while (true)
-        {
+        ArrayList<String> courseList = teacher.courseList();
+        while (true) {
             try {
 
-                received = dis.readUTF();
-                System.out.println(received);
-                received1 = dis.readUTF();
-                System.out.println(received1);
 
-                if(received.equals("Exit"))
-                {
+                String line;
+                while (!(line = dis.readUTF()).equals("")) {
+                    try {
+                        if (line.substring(line.length() - 2).equals("00")) {
+                            System.out.println("This is a teacher username");
+                            line = line.substring(0, line.length() - 2);
+                            user.setUsername(line);
+                        }
+                        if (line.substring(line.length() - 2).equals("01")) {
+                            System.out.println("This is a teacher password");
+                            line = line.substring(0, line.length() - 2);
+                            String nameTaken = user.createName(loginInfo, user.getUsername(),false);
+                            if (nameTaken.equals("bad")) {
+                                dos.writeUTF("name taken");
+                            } else {
+                                user.teacherPass(loginInfo,line,user.getUsername());
+                            }
+                        }
+                        if (line.substring(line.length() - 2).equals("02")) {
+                            System.out.println("This is a teacher username");
+                            line = line.substring(0, line.length() - 2);
+                        }
+                        if (line.substring(line.length() - 2).equals("03")) {
+                            System.out.println("This is a teacher username");
+                            line = line.substring(0, line.length() - 2);
+                        }
+                        if (line.equals("Exit")) {
+                            System.out.println("Client " + this.s + " sends exit...");
+                            System.out.println("Closing this connection.");
+                            this.s.close();
+                            System.out.println("Connection closed");
+                            break;
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                if (line.equals("Exit")) {
                     System.out.println("Client " + this.s + " sends exit...");
                     System.out.println("Closing this connection.");
                     this.s.close();
@@ -86,22 +109,18 @@ class ClientHandler extends Thread
                     break;
                 }
 
-
-
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
 
-        try
-        {
+        try {
             // closing resources
             this.dis.close();
             this.dos.close();
 
-        }catch(IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 }
-
