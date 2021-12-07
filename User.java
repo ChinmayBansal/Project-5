@@ -51,13 +51,12 @@ public class User {
 
     public String createName(ArrayList<String> loginInfo, String username, boolean taken) {
         do {
-            for (int i = 0; i < loginInfo.size()+1; i += 2) {
+            for (int i = 0; i < loginInfo.size(); i += 2) {
                 if (username.equals(loginInfo.get(i))) {
-                    return "bad";
-                } else {
-                    return "good";
+                    return "taken";
                 }
             }
+            return "not taken";
         } while (true);
     }
 
