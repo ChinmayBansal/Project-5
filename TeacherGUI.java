@@ -3,6 +3,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+
 public class TeacherGUI extends JComponent implements Runnable {
 
     public static void main(String[] args) {
@@ -90,17 +91,31 @@ public class TeacherGUI extends JComponent implements Runnable {
         JTextField courseName = new JTextField(10);
         JButton enter = new JButton("Enter");
 
-//        username.addActionListener(actionListener);
-//        password.addActionListener(actionListener);
+        //if the course is found
+        enter.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.dispose();
+                addedConformation();
+                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            }
+        });
 
+        //if the course is not found
+        enter.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.dispose();
+                courseNotFound();
+                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            }
+        });
         JPanel panel = new JPanel();
         panel.add(question);
         panel.add(question2);
         panel.add(courseName);
-
         panel.add(enter);
         content.add(panel, BorderLayout.CENTER);
-
         frame.setSize(600, 600);
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -113,6 +128,26 @@ public class TeacherGUI extends JComponent implements Runnable {
         JLabel question = new JLabel("Which course would you like to edit?");
         JTextField courseEdit = new JTextField(10);
         JButton enter = new JButton("Enter");
+        //if the course is found
+        enter.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.dispose();
+                //next frame
+                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            }
+        });
+
+        //if the course is not found
+        enter.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.dispose();
+                courseNotFound();
+                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            }
+        });
+
         JPanel panel = new JPanel();
         panel.add(question);
         panel.add(courseEdit);
@@ -130,6 +165,28 @@ public class TeacherGUI extends JComponent implements Runnable {
         JLabel question = new JLabel("Which course would you like to view submissions for?");
         JTextField courseEdit = new JTextField(10);
         JButton enter = new JButton("Enter");
+
+        //add how to check course
+
+        //if course exists
+        enter.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.dispose();
+                printCourses();
+                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            }
+        });
+        //if the course is not found
+        enter.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.dispose();
+                courseNotFound();
+                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            }
+        });
+
         JPanel panel = new JPanel();
         panel.add(question);
         panel.add(courseEdit);
@@ -164,11 +221,68 @@ public class TeacherGUI extends JComponent implements Runnable {
 
     void logoutScreen() {
         JFrame frame = new JFrame("Logout");
+        Container content = frame.getContentPane();
         JLabel message = new JLabel("Thank you for using the Quiz App");
         JPanel panel = new JPanel();
-        panel.add(frame);
         panel.add(message);
-        panel.add(panel, BorderLayout.CENTER);
+        content.add(panel, BorderLayout.CENTER);
+        frame.setSize(600, 600);
+        frame.setLocationRelativeTo(null);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setVisible(true);
+    }
+
+
+    //second slides
+    void courseNotFound() {
+        JFrame frame = new JFrame("Error!");
+        Container content = frame.getContentPane();
+        JLabel message = new JLabel("Course Not Found! \n Click button to continue");
+        JButton continueButton = new JButton("Continue");
+        JPanel panel = new JPanel();
+        panel.add(message);
+        panel.add(continueButton);
+        content.add(panel, BorderLayout.CENTER);
+        frame.setSize(600, 600);
+        frame.setLocationRelativeTo(null);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setVisible(true);
+    }
+
+    void addedConformation() {
+        JFrame frame = new JFrame("Course Added!");
+        Container content = frame.getContentPane();
+        JLabel message = new JLabel("Course Added! \n Click button to continue");
+        JButton continueButton = new JButton("Continue");
+        JPanel panel = new JPanel();
+        panel.add(message);
+        panel.add(continueButton);
+        content.add(panel, BorderLayout.CENTER);
+        frame.setSize(600, 600);
+        frame.setLocationRelativeTo(null);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setVisible(true);
+    }
+
+    void printCourses() {
+        JFrame frame = new JFrame("Submissions");
+        Container content = frame.getContentPane();
+        JLabel message = new JLabel("Here are all of your submissions");
+        JButton goBack = new JButton("Return to home");
+        JButton exit = new JButton("Exit");
+        exit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.dispose();
+                //exit page method
+                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            }
+        });
+        JPanel panel = new JPanel();
+        panel.add(message);
+        panel.add(goBack);
+        panel.add(exit);
+        content.add(panel, BorderLayout.CENTER);
         frame.setSize(600, 600);
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
