@@ -342,10 +342,26 @@ public class TeacherGUI extends JComponent implements Runnable {
         Container content = frame.getContentPane();
         JLabel message = new JLabel("Add through text or file?");
         JButton text = new JButton("Text");
-        //
-        
+        //text option
+        text.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.dispose();
+                inputQuiz();
+                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            }
+        });
+
         JButton file = new JButton("File");
-        //
+        //file
+        file.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.dispose();
+                fileUpload();
+                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            }
+        });
         JPanel panel = new JPanel();
         panel.add(message);
         panel.add(text);
@@ -420,6 +436,56 @@ public class TeacherGUI extends JComponent implements Runnable {
         JPanel panel = new JPanel();
         panel.add(message);
         panel.add(courseName);
+        panel.add(continueButton);
+        content.add(panel, BorderLayout.CENTER);
+        frame.setSize(600, 600);
+        frame.setLocationRelativeTo(null);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setVisible(true);
+    }
+
+    void inputQuiz() {
+        JFrame frame = new JFrame("File Upload");
+        Container content = frame.getContentPane();
+        JLabel message = new JLabel("Enter Quiz");
+        JTextField quiz = new JTextField(10);
+        JButton continueButton = new JButton("Continue");
+        continueButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.dispose();
+            }
+        });
+        JPanel panel = new JPanel();
+        panel.add(message);
+        panel.add(quiz);
+        panel.add(continueButton);
+        content.add(panel, BorderLayout.CENTER);
+        frame.setSize(600, 600);
+        frame.setLocationRelativeTo(null);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setVisible(true);
+    }
+
+    void fileUpload() {
+        JFrame frame = new JFrame("File Upload");
+        Container content = frame.getContentPane();
+        JLabel message = new JLabel("Enter name of course");
+        JTextField courseName = new JTextField(10);
+        JLabel message2 = new JLabel("Enter file name");
+        JTextField filename = new JTextField(10);
+        JButton continueButton = new JButton("Continue");
+        continueButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.dispose();
+            }
+        });
+        JPanel panel = new JPanel();
+        panel.add(message);
+        panel.add(courseName);
+        panel.add(message2);
+        panel.add(filename);
         panel.add(continueButton);
         content.add(panel, BorderLayout.CENTER);
         frame.setSize(600, 600);
