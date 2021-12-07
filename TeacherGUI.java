@@ -102,14 +102,14 @@ public class TeacherGUI extends JComponent implements Runnable {
         });
 
         //if the course is not found
-        enter.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                frame.dispose();
-                courseNotFound();
-                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            }
-        });
+//        enter.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                frame.dispose();
+//                courseNotFound();
+//                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+//            }
+//        });
         JPanel panel = new JPanel();
         panel.add(question);
         panel.add(question2);
@@ -133,20 +133,20 @@ public class TeacherGUI extends JComponent implements Runnable {
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.dispose();
-                //next frame
+                editQuestion();
                 frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             }
         });
 
         //if the course is not found
-        enter.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                frame.dispose();
-                courseNotFound();
-                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            }
-        });
+//        enter.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                frame.dispose();
+//                courseNotFound();
+//                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+//            }
+//        });
 
         JPanel panel = new JPanel();
         panel.add(question);
@@ -178,14 +178,14 @@ public class TeacherGUI extends JComponent implements Runnable {
             }
         });
         //if the course is not found
-        enter.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                frame.dispose();
-                courseNotFound();
-                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            }
-        });
+//        enter.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                frame.dispose();
+//                courseNotFound();
+//                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+//            }
+//        });
 
         JPanel panel = new JPanel();
         panel.add(question);
@@ -237,10 +237,12 @@ public class TeacherGUI extends JComponent implements Runnable {
     void courseNotFound() {
         JFrame frame = new JFrame("Error!");
         Container content = frame.getContentPane();
-        JLabel message = new JLabel("Course Not Found! \n Click button to continue");
+        JLabel message = new JLabel("Error! \n Enter Another Course Name");
+        JTextField courseName = new JTextField(10);
         JButton continueButton = new JButton("Continue");
         JPanel panel = new JPanel();
         panel.add(message);
+        panel.add(courseName);
         panel.add(continueButton);
         content.add(panel, BorderLayout.CENTER);
         frame.setSize(600, 600);
@@ -289,4 +291,140 @@ public class TeacherGUI extends JComponent implements Runnable {
         frame.setVisible(true);
     }
 
+    void editQuestion() {
+        JFrame frame = new JFrame("Edit Course");
+        Container content = frame.getContentPane();
+        JLabel message = new JLabel("Would you like to add or remove a quiz?");
+        JButton add = new JButton("Add");
+        add.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.dispose();
+                inputOrFile();
+                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            }
+        });
+        JButton remove = new JButton("Remove");
+        remove.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.dispose();
+                deleteQuiz();
+                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            }
+        });
+        JPanel panel = new JPanel();
+        panel.add(message);
+        panel.add(add);
+        panel.add(remove);
+        content.add(panel, BorderLayout.CENTER);
+        frame.setSize(600, 600);
+        frame.setLocationRelativeTo(null);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setVisible(true);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //third slides
+    void inputOrFile() {
+        JFrame frame = new JFrame("Add Quiz");
+        Container content = frame.getContentPane();
+        JLabel message = new JLabel("Add through text or file?");
+        JButton text = new JButton("Text");
+        //
+        
+        JButton file = new JButton("File");
+        //
+        JPanel panel = new JPanel();
+        panel.add(message);
+        panel.add(text);
+        panel.add(file);
+        content.add(panel, BorderLayout.CENTER);
+        frame.setSize(600, 600);
+        frame.setLocationRelativeTo(null);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setVisible(true);
+    }
+    void deleteQuiz() {
+        JFrame frame = new JFrame("Delete Quiz");
+        Container content = frame.getContentPane();
+        JLabel message = new JLabel("What is the name of the quiz?");
+        JTextField courseName = new JTextField(10);
+        JButton continueButton = new JButton("Continue");
+
+        //if course is found
+        continueButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.dispose();
+                addedConformation2();
+                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            }
+        });
+
+//        //if course is not found
+//        continueButton.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                frame.dispose();
+//                courseNotFound2();
+//                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+//            }
+//        });
+
+
+        JPanel panel = new JPanel();
+        panel.add(message);
+        panel.add(courseName);
+        panel.add(continueButton);
+        content.add(panel, BorderLayout.CENTER);
+        frame.setSize(600, 600);
+        frame.setLocationRelativeTo(null);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setVisible(true);
+    }
+
+
+    //fourth slides
+    void addedConformation2() {
+        JFrame frame = new JFrame("Course Added!");
+        Container content = frame.getContentPane();
+        JLabel message = new JLabel("Course Added! \n Click button to continue");
+        JButton continueButton = new JButton("Continue");
+        JPanel panel = new JPanel();
+        panel.add(message);
+        panel.add(continueButton);
+        content.add(panel, BorderLayout.CENTER);
+        frame.setSize(600, 600);
+        frame.setLocationRelativeTo(null);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setVisible(true);
+    }
+    void courseNotFound2() {
+        JFrame frame = new JFrame("Error!");
+        Container content = frame.getContentPane();
+        JLabel message = new JLabel("Error! \n Enter Another Course Name");
+        JTextField courseName = new JTextField(10);
+        JButton continueButton = new JButton("Continue");
+        JPanel panel = new JPanel();
+        panel.add(message);
+        panel.add(courseName);
+        panel.add(continueButton);
+        content.add(panel, BorderLayout.CENTER);
+        frame.setSize(600, 600);
+        frame.setLocationRelativeTo(null);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setVisible(true);
+    }
 }
