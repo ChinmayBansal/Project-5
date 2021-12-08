@@ -82,14 +82,23 @@ class ClientHandler extends Thread {
                             }
                         }
                         else if (line.substring(line.length() - 2).equals("02")) {
-                            System.out.println("This is a teacher username");
+                            System.out.println("This is a student username");
                             line = line.substring(0, line.length() - 2);
+                             user.setUsername(line);
                             break;
                         }
                         else if (line.substring(line.length() - 2).equals("03")) {
-                            System.out.println("This is a teacher username");
+                            System.out.println("This is a student password");
                             line = line.substring(0, line.length() - 2);
-                            break;
+                            String nameTaken = user.createName(loginInfo, user.getUsername(), false);
+                            if(nameTaken.equals("taken")) {
+                                dos.writeUTF("name taken");
+                            }
+                            else {
+                                user.studentPass(loginInfo, line, user.getUsername());
+                                dos.writeUTF("name available");
+                                break;
+                            }
                         }
                         else if (line.equals("Exit")) {
                             System.out.println("Client " + this.s + " sends exit...");
