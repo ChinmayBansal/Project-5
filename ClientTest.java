@@ -132,6 +132,10 @@ public class ClientTest extends JComponent implements Runnable
                                         JOptionPane.showMessageDialog(null,
                                                 "Username taken", "Error",
                                                 JOptionPane.ERROR_MESSAGE);
+                                    } else {
+                                        JOptionPane.showMessageDialog(null,
+                                                "Profile Created", "Success",
+                                                JOptionPane.INFORMATION_MESSAGE);
                                     }
                                 } catch (IOException ex) {
                                     ex.printStackTrace();
