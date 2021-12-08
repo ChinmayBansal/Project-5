@@ -61,17 +61,15 @@ class ClientHandler extends Thread {
         ArrayList<String> courseList = teacher.courseList();
         while (true) {
             try {
-
-
                 String line;
-                while (!(line = dis.readUTF()).equals("")) {
+                while (!(line = dis.readUTF()).equals("stop")) {
                     try {
                         if (line.substring(line.length() - 2).equals("00")) {
                             System.out.println("This is a teacher username");
                             line = line.substring(0, line.length() - 2);
                             user.setUsername(line);
                         }
-                        if (line.substring(line.length() - 2).equals("01")) {
+                        else if (line.substring(line.length() - 2).equals("01")) {
                             System.out.println("This is a teacher password");
                             line = line.substring(0, line.length() - 2);
                             String nameTaken = user.createName(loginInfo, user.getUsername(),false);
@@ -79,17 +77,21 @@ class ClientHandler extends Thread {
                                 dos.writeUTF("name taken");
                             } else {
                                 user.teacherPass(loginInfo,line,user.getUsername());
+                                dos.writeUTF("name available");
+                                break;
                             }
                         }
-                        if (line.substring(line.length() - 2).equals("02")) {
+                        else if (line.substring(line.length() - 2).equals("02")) {
                             System.out.println("This is a teacher username");
                             line = line.substring(0, line.length() - 2);
+                            break;
                         }
-                        if (line.substring(line.length() - 2).equals("03")) {
+                        else if (line.substring(line.length() - 2).equals("03")) {
                             System.out.println("This is a teacher username");
                             line = line.substring(0, line.length() - 2);
+                            break;
                         }
-                        if (line.equals("Exit")) {
+                        else if (line.equals("Exit")) {
                             System.out.println("Client " + this.s + " sends exit...");
                             System.out.println("Closing this connection.");
                             this.s.close();
