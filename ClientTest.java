@@ -181,7 +181,7 @@ public class ClientTest extends JComponent implements Runnable {
                             @Override
                             public void actionPerformed(ActionEvent e) {
                                 try {
-                                    messageToServer(enterStudentUsername.getText() + "02");
+                                    messageToServer(enterStudentUsername.getText() + "00");
                                     messageToServer(enterStudentPassword.getText() + "03");
                                     String checkUsername = messageFromServer();
                                     if (checkUsername.equals("name taken")) {
@@ -277,6 +277,72 @@ public class ClientTest extends JComponent implements Runnable {
                                                 "Invalid Login", "Error",
                                                 JOptionPane.INFORMATION_MESSAGE);
                                         frame6.setVisible(false);
+                                        frame1.setVisible(true);
+                                    }
+                                } catch (IOException ex) {
+                                    int i = 0;
+                                    while (i < 2) {
+                                        ex.printStackTrace();
+                                        i++;
+                                    }
+                                }
+                            }
+                        });
+                    }
+                });
+
+                studentLogin.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        frame5.setVisible(false);
+                        System.out.println("Program reaches this far");
+
+                        JFrame frame7 = new JFrame("Login");
+                        Container content = frame7.getContentPane();
+                        JLabel studentUsername = new JLabel("Enter Username");
+                        JTextField loginStudentUsername = new JTextField(10);
+                        JLabel studentPassword = new JLabel("Enter Password");
+                        JTextField loginStudentPassword = new JTextField(10);
+                        JButton enterLogin = new JButton("Enter");
+                        JPanel panel = new JPanel();
+                        panel.add(studentUsername);
+                        panel.add(loginStudentUsername);
+                        panel.add(studentPassword);
+                        panel.add(loginStudentPassword);
+                        panel.add(enterLogin);
+                        content.add(panel, BorderLayout.CENTER);
+                        frame7.setSize(600, 400);
+                        frame7.setLocationRelativeTo(null);
+                        frame7.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                        frame7.setVisible(true);
+
+                        enterLogin.addActionListener(new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
+                                try {
+                                    int checker = 0;
+                                    System.out.println("Program reaches this far");
+                                    messageToServer(loginStudentUsername.getText() + "04");
+                                    System.out.println("Program reaches this far");
+                                    String checkUsername = messageFromServer();
+                                    System.out.println("Program reaches this far");
+                                    if (checkUsername.equals("username match")) {
+                                        checker++;
+                                    }
+                                    messageToServer(loginStudentPassword.getText() + "06");
+                                    String checkTeacherPass = messageFromServer();
+                                    if(checkTeacherPass.equals("pass match")) {
+                                        checker++;
+                                    }
+                                    if (checker == 2) {
+                                        JOptionPane.showMessageDialog(null,
+                                                "Successful Login", "Student",
+                                                JOptionPane.INFORMATION_MESSAGE);
+                                    } else {
+                                        JOptionPane.showMessageDialog(null,
+                                                "Invalid Login", "Error",
+                                                JOptionPane.INFORMATION_MESSAGE);
+                                        frame7.setVisible(false);
                                         frame1.setVisible(true);
                                     }
                                 } catch (IOException ex) {
