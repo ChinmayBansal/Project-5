@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.*;
+import java.io.*;
 
 public class TeacherGUI extends JComponent implements Runnable {
 
@@ -17,6 +19,14 @@ public class TeacherGUI extends JComponent implements Runnable {
     void menu() {
         //teacher menu
         JFrame frame = new JFrame("Teacher Menu");
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                super.windowClosing(e);
+                System.out.println("Client force closed");
+                //messageToServer("closing");
+            }
+        });
         Container content = frame.getContentPane();
 
         JButton option1 = new JButton("Create Course");
@@ -50,7 +60,7 @@ public class TeacherGUI extends JComponent implements Runnable {
         });
 
         JButton option4 = new JButton("Edit Information");
-        option3.addActionListener(new ActionListener() {
+        option4.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.dispose();
@@ -60,7 +70,7 @@ public class TeacherGUI extends JComponent implements Runnable {
         });
 
         JButton option5 = new JButton("Logout");
-        option3.addActionListener(new ActionListener() {
+        option5.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.dispose();
@@ -83,6 +93,14 @@ public class TeacherGUI extends JComponent implements Runnable {
     }
     void createCourse() {
         JFrame frame = new JFrame("Create Course");
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                super.windowClosing(e);
+                System.out.println("Client force closed");
+                //messageToServer("closing");
+            }
+        });
         Container content = frame.getContentPane();
         JLabel question = new JLabel("What do you want to name the course?");
         JLabel question2 = new JLabel("Two letters and 3 numbers Ex. CS180");
@@ -122,6 +140,14 @@ public class TeacherGUI extends JComponent implements Runnable {
 
     void editCourse() {
         JFrame frame = new JFrame("Edit Course");
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                super.windowClosing(e);
+                System.out.println("Client force closed");
+                //messageToServer("closing");
+            }
+        });
         Container content = frame.getContentPane();
         JLabel question = new JLabel("Which course would you like to edit?");
         JTextField courseEdit = new JTextField(10);
@@ -159,6 +185,14 @@ public class TeacherGUI extends JComponent implements Runnable {
 
     void viewSubmissions() {
         JFrame frame = new JFrame("View Submissions");
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                super.windowClosing(e);
+                System.out.println("Client force closed");
+                //messageToServer("closing");
+            }
+        });
         Container content = frame.getContentPane();
         JLabel question = new JLabel("Which course would you like to view submissions for?");
         JTextField courseEdit = new JTextField(10);
@@ -198,6 +232,14 @@ public class TeacherGUI extends JComponent implements Runnable {
 
     void editInformation() {
         JFrame frame = new JFrame("Edit Information");
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                super.windowClosing(e);
+                System.out.println("Client force closed");
+                //messageToServer("closing");
+            }
+        });
         Container content = frame.getContentPane();
         JLabel question = new JLabel("Choose which one to change");
         JButton userName = new JButton("Username");
@@ -241,6 +283,14 @@ public class TeacherGUI extends JComponent implements Runnable {
 
     void logoutScreen() {
         JFrame frame = new JFrame("Logout");
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                super.windowClosing(e);
+                System.out.println("Client force closed");
+                //messageToServer("closing");
+            }
+        });
         Container content = frame.getContentPane();
         JLabel message = new JLabel("Thank you for using the Quiz App");
         JPanel panel = new JPanel();
@@ -256,6 +306,14 @@ public class TeacherGUI extends JComponent implements Runnable {
     //second slides
     void courseNotFound() {
         JFrame frame = new JFrame("Error!");
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                super.windowClosing(e);
+                System.out.println("Client force closed");
+                //messageToServer("closing");
+            }
+        });
         Container content = frame.getContentPane();
         JLabel message = new JLabel("Error! \n Enter Another Course Name");
         JTextField courseName = new JTextField(10);
@@ -273,6 +331,14 @@ public class TeacherGUI extends JComponent implements Runnable {
 
     void addedConformation() {
         JFrame frame = new JFrame("Course Added!");
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                super.windowClosing(e);
+                System.out.println("Client force closed");
+                //messageToServer("closing");
+            }
+        });
         Container content = frame.getContentPane();
         JLabel message = new JLabel("Course Added! \n Click button to continue");
         JButton continueButton = new JButton("Continue");
@@ -288,6 +354,14 @@ public class TeacherGUI extends JComponent implements Runnable {
 
     void printCourses() {
         JFrame frame = new JFrame("Submissions");
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                super.windowClosing(e);
+                System.out.println("Client force closed");
+                //messageToServer("closing");
+            }
+        });
         Container content = frame.getContentPane();
         JLabel message = new JLabel("Here are all of your submissions");
         JButton goBack = new JButton("Return to home");
@@ -313,6 +387,14 @@ public class TeacherGUI extends JComponent implements Runnable {
 
     void editQuestion() {
         JFrame frame = new JFrame("Edit Course");
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                super.windowClosing(e);
+                System.out.println("Client force closed");
+                //messageToServer("closing");
+            }
+        });
         Container content = frame.getContentPane();
         JLabel message = new JLabel("Would you like to add or remove a quiz?");
         JButton add = new JButton("Add");
@@ -347,6 +429,14 @@ public class TeacherGUI extends JComponent implements Runnable {
     //third slides
     void inputOrFile() {
         JFrame frame = new JFrame("Add Quiz");
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                super.windowClosing(e);
+                System.out.println("Client force closed");
+                //messageToServer("closing");
+            }
+        });
         Container content = frame.getContentPane();
         JLabel message = new JLabel("Add through text or file?");
         JButton text = new JButton("Text");
@@ -382,6 +472,14 @@ public class TeacherGUI extends JComponent implements Runnable {
     }
     void deleteQuiz() {
         JFrame frame = new JFrame("Delete Quiz");
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                super.windowClosing(e);
+                System.out.println("Client force closed");
+                //messageToServer("closing");
+            }
+        });
         Container content = frame.getContentPane();
         JLabel message = new JLabel("What is the name of the quiz?");
         JTextField courseName = new JTextField(10);
@@ -420,10 +518,26 @@ public class TeacherGUI extends JComponent implements Runnable {
     }
     void newUsername() {
         JFrame frame = new JFrame("Username Field");
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                super.windowClosing(e);
+                System.out.println("Client force closed");
+                //messageToServer("closing");
+            }
+        });
         Container content = frame.getContentPane();
         JLabel message = new JLabel("Enter new username: ");
         JTextField courseName = new JTextField(12);
         JButton continueButton = new JButton("Enter");
+        continueButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.dispose();
+                updateConfirmation();
+                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            }
+        });
         JPanel panel = new JPanel();
         panel.add(message);
         panel.add(courseName);
@@ -436,10 +550,26 @@ public class TeacherGUI extends JComponent implements Runnable {
     }
     void newPassword() {
         JFrame frame = new JFrame("Password Field");
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                super.windowClosing(e);
+                System.out.println("Client force closed");
+                //messageToServer("closing");
+            }
+        });
         Container content = frame.getContentPane();
         JLabel message = new JLabel("Enter new password: ");
         JTextField courseName = new JTextField(12);
         JButton continueButton = new JButton("Enter");
+        continueButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.dispose();
+                updateConfirmation();
+                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            }
+        });
         JPanel panel = new JPanel();
         panel.add(message);
         panel.add(courseName);
@@ -452,6 +582,14 @@ public class TeacherGUI extends JComponent implements Runnable {
     }
     void deleteAccount() {
         JFrame frame = new JFrame("Delete Account");
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                super.windowClosing(e);
+                System.out.println("Client force closed");
+                //messageToServer("closing");
+            }
+        });
         Container content = frame.getContentPane();
         JLabel message = new JLabel("Delete account");
         JButton b = new JButton("Continue");
@@ -469,6 +607,14 @@ public class TeacherGUI extends JComponent implements Runnable {
     //fourth slides
     void addedConformation2() {
         JFrame frame = new JFrame("Course Added!");
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                super.windowClosing(e);
+                System.out.println("Client force closed");
+                //messageToServer("closing");
+            }
+        });
         Container content = frame.getContentPane();
         JLabel message = new JLabel("Course Added! \n Click button to continue");
         JButton continueButton = new JButton("Continue");
@@ -483,6 +629,14 @@ public class TeacherGUI extends JComponent implements Runnable {
     }
     void courseNotFound2() {
         JFrame frame = new JFrame("Error!");
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                super.windowClosing(e);
+                System.out.println("Client force closed");
+                //messageToServer("closing");
+            }
+        });
         Container content = frame.getContentPane();
         JLabel message = new JLabel("Error! \n Enter Another Course Name");
         JTextField courseName = new JTextField(10);
@@ -500,6 +654,14 @@ public class TeacherGUI extends JComponent implements Runnable {
 
     void inputQuiz() {
         JFrame frame = new JFrame("File Upload");
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                super.windowClosing(e);
+                System.out.println("Client force closed");
+                //messageToServer("closing");
+            }
+        });
         Container content = frame.getContentPane();
         JLabel message = new JLabel("Enter Quiz");
         JTextField quiz = new JTextField(10);
@@ -523,6 +685,14 @@ public class TeacherGUI extends JComponent implements Runnable {
 
     void fileUpload() {
         JFrame frame = new JFrame("File Upload");
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                super.windowClosing(e);
+                System.out.println("Client force closed");
+                //messageToServer("closing");
+            }
+        });
         Container content = frame.getContentPane();
         JLabel message = new JLabel("Enter name of course");
         JTextField courseName = new JTextField(10);
@@ -549,6 +719,35 @@ public class TeacherGUI extends JComponent implements Runnable {
     }
 
     void updateConfirmation() {
+        JFrame f = new JFrame("Operation Complete");
+        f.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                super.windowClosing(e);
+                System.out.println("Client force closed");
+                //messageToServer("closing");
+            }
+        });
+        Container c = f.getContentPane();
+        JTextField a = new JTextField(
+                "Update Complete"
+        );
+        JButton finish = new JButton("Finish");
+        finish.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                f.dispose();
+                f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            }
+        });
+        JPanel panel = new JPanel();
+        panel.add(a);
+        panel.add(finish);
+        c.add(a, panel);
+        f.setSize(300, 300);
+        f.setLocationRelativeTo(null);
+        f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        f.setVisible(true);
 
     }
 }
