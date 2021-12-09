@@ -22,16 +22,15 @@ public class ClientTest extends JComponent implements Runnable {
             // establish the connection with server port 5056
             s = new Socket(ip, 4242);
 
-            SwingUtilities.invokeLater(new ClientTest());
+                SwingUtilities.invokeLater(new ClientTest());
 
-//           dis.close();
-//           dos.close();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public static synchronized void messageToServer(String message) throws IOException {
+    public static void messageToServer(String message) throws IOException {
         // obtaining out stream
         DataOutputStream dos = new DataOutputStream(s.getOutputStream());
         while (message != null) {
@@ -39,19 +38,27 @@ public class ClientTest extends JComponent implements Runnable {
                 dos.writeUTF(message);
                 message = null;
             } catch (Exception e) {
-                System.out.println("Message to server could not be sent");
+                int i = 0;
+                while (i < 2) {
+                    System.out.println("Message to server could not be sent");
+                    i++;
+                }
             }
         }
     }
 
-    public static synchronized String messageFromServer() throws IOException {
+    public static String messageFromServer() throws IOException {
         // obtaining input stream
         while (true) {
             DataInputStream dis = new DataInputStream(s.getInputStream());
             try {
                 return dis.readUTF();
             } catch (Exception e) {
-                System.out.println("Message to server could not be sent");
+                int i = 0;
+                while (i < 2) {
+                    System.out.println("Message from server could not be received");
+                    i++;
+                }
             }
         }
     }
@@ -197,12 +204,15 @@ public class ClientTest extends JComponent implements Runnable {
                 });
             }
         });
-
         login.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                frame1.setVisible(false);
+                System.out.println("Program reaches this far");
+
                 JFrame frame5 = new JFrame("Account Type");
                 Container content = frame5.getContentPane();
+
                 JButton teacherLogin = new JButton("Teacher");
                 JButton studentLogin = new JButton("Student");
                 JPanel panel = new JPanel();
@@ -218,46 +228,63 @@ public class ClientTest extends JComponent implements Runnable {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         frame5.setVisible(false);
+                        System.out.println("Program reaches this far");
 
                         JFrame frame6 = new JFrame("Login");
                         Container content = frame6.getContentPane();
                         JLabel teacherUsername = new JLabel("Enter Username");
-                        JTextField enterTeacherUsername = new JTextField(10);
+                        JTextField loginTeacherUsername = new JTextField(10);
                         JLabel teacherPassword = new JLabel("Enter Password");
-                        JTextField enterTeacherPassword = new JTextField(10);
-                        JButton enter = new JButton("Enter");
+                        JTextField loginTeacherPassword = new JTextField(10);
+                        JButton enterLogin = new JButton("Enter");
                         JPanel panel = new JPanel();
                         panel.add(teacherUsername);
-                        panel.add(enterTeacherUsername);
+                        panel.add(loginTeacherUsername);
                         panel.add(teacherPassword);
-                        panel.add(enterTeacherPassword);
-                        panel.add(enter);
+                        panel.add(loginTeacherPassword);
+                        panel.add(enterLogin);
                         content.add(panel, BorderLayout.CENTER);
                         frame6.setSize(600, 400);
                         frame6.setLocationRelativeTo(null);
                         frame6.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                         frame6.setVisible(true);
 
-                        enter.addActionListener(new ActionListener() {
+                        enterLogin.addActionListener(new ActionListener() {
                             @Override
                             public void actionPerformed(ActionEvent e) {
                                 try {
-                                    messageToServer(enterTeacherUsername.getText() + "04");
-                                    messageToServer(enterTeacherPassword.getText() + "05");
+                                    int checker = 0;
+                                    System.out.println("Program reaches this far");
+                                    messageToServer(loginTeacherUsername.getText() + "04");
+                                    System.out.println("Program reaches this far");
                                     String checkUsername = messageFromServer();
-                                    if (checkUsername.equals("wrong username")) {
+                                    System.out.println("Program reaches this far");
+                                    if (checkUsername.equals("username match")) {
+                                        checker++;
+                                    }
+                                    messageToServer(loginTeacherPassword.getText() + "05");
+                                    String checkTeacherPass = messageFromServer();
+                                    if(checkTeacherPass.equals("pass match")) {
+                                        checker++;
+                                    }
+
+                                    if (checker == 2) {
                                         JOptionPane.showMessageDialog(null,
-                                                "Username taken", "Error",
-                                                JOptionPane.ERROR_MESSAGE);
+                                                "Successful Login", "Teacher",
+                                                JOptionPane.INFORMATION_MESSAGE);
                                     } else {
                                         JOptionPane.showMessageDialog(null,
-                                                "Profile Created", "Success",
+                                                "Invalid Login", "Error",
                                                 JOptionPane.INFORMATION_MESSAGE);
                                         frame6.setVisible(false);
                                         frame1.setVisible(true);
                                     }
                                 } catch (IOException ex) {
-                                    ex.printStackTrace();
+                                    int i = 0;
+                                    while (i < 2) {
+                                        ex.printStackTrace();
+                                        i++;
+                                    }
                                 }
                             }
                         });
@@ -266,5 +293,4 @@ public class ClientTest extends JComponent implements Runnable {
             }
         });
     }
-
 }
