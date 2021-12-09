@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -80,6 +82,18 @@ public class ClientTest extends JComponent implements Runnable {
         frame1.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame1.setVisible(true);
 
+        frame1.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                super.windowClosing(e);
+                try {
+                    System.out.println("Client force closed");
+                    messageToServer("closing");
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
         //Once user clicks the create user button//
         createUser.addActionListener(new ActionListener() {
             @Override
@@ -98,6 +112,19 @@ public class ClientTest extends JComponent implements Runnable {
                 frame2.setLocationRelativeTo(null);
                 frame2.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 frame2.setVisible(true);
+
+                frame2.addWindowListener(new WindowAdapter() {
+                    @Override
+                    public void windowClosing(WindowEvent e) {
+                        super.windowClosing(e);
+                        try {
+                            System.out.println("Client force closed");
+                            messageToServer("closing");
+                        } catch (IOException ex) {
+                            ex.printStackTrace();
+                        }
+                    }
+                });
 
                 //User creating a teacher account//
                 teacherButton.addActionListener(new ActionListener() {
@@ -123,6 +150,18 @@ public class ClientTest extends JComponent implements Runnable {
                         frame3.setLocationRelativeTo(null);
                         frame3.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                         frame3.setVisible(true);
+                        frame3.addWindowListener(new WindowAdapter() {
+                            @Override
+                            public void windowClosing(WindowEvent e) {
+                                super.windowClosing(e);
+                                try {
+                                    System.out.println("Client force closed");
+                                    messageToServer("closing");
+                                } catch (IOException ex) {
+                                    ex.printStackTrace();
+                                }
+                            }
+                        });
 
                         //user submitting the username and password
                         enter.addActionListener(new ActionListener() {
@@ -176,6 +215,19 @@ public class ClientTest extends JComponent implements Runnable {
                         frame4.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                         frame4.setVisible(true);
 
+                        frame4.addWindowListener(new WindowAdapter() {
+                            @Override
+                            public void windowClosing(WindowEvent e) {
+                                super.windowClosing(e);
+                                try {
+                                    System.out.println("Client force closed");
+                                    messageToServer("closing");
+                                } catch (IOException ex) {
+                                    ex.printStackTrace();
+                                }
+                            }
+                        });
+
                         // user entering username and password
                         enter.addActionListener(new ActionListener() {
                             @Override
@@ -224,6 +276,19 @@ public class ClientTest extends JComponent implements Runnable {
                 frame5.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 frame5.setVisible(true);
 
+                frame5.addWindowListener(new WindowAdapter() {
+                    @Override
+                    public void windowClosing(WindowEvent e) {
+                        super.windowClosing(e);
+                        try {
+                            System.out.println("Client force closed");
+                            messageToServer("closing");
+                        } catch (IOException ex) {
+                            ex.printStackTrace();
+                        }
+                    }
+                });
+
                 teacherLogin.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
@@ -248,6 +313,19 @@ public class ClientTest extends JComponent implements Runnable {
                         frame6.setLocationRelativeTo(null);
                         frame6.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                         frame6.setVisible(true);
+
+                        frame6.addWindowListener(new WindowAdapter() {
+                            @Override
+                            public void windowClosing(WindowEvent e) {
+                                super.windowClosing(e);
+                                try {
+                                    System.out.println("Client force closed");
+                                    messageToServer("closing");
+                                } catch (IOException ex) {
+                                    ex.printStackTrace();
+                                }
+                            }
+                        });
 
                         enterLogin.addActionListener(new ActionListener() {
                             @Override
@@ -315,6 +393,19 @@ public class ClientTest extends JComponent implements Runnable {
                         frame7.setLocationRelativeTo(null);
                         frame7.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                         frame7.setVisible(true);
+
+                        frame7.addWindowListener(new WindowAdapter() {
+                            @Override
+                            public void windowClosing(WindowEvent e) {
+                                super.windowClosing(e);
+                                try {
+                                    System.out.println("Client force closed");
+                                    messageToServer("closing");
+                                } catch (IOException ex) {
+                                    ex.printStackTrace();
+                                }
+                            }
+                        });
 
                         enterLogin.addActionListener(new ActionListener() {
                             @Override
