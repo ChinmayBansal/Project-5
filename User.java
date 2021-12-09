@@ -91,34 +91,31 @@ public class User {
         }
     }
 
-    public int checkUsername(ArrayList<String> loginInfo, String username, int point) {
+    public String checkUsername(ArrayList<String> loginInfo, String username) {
         for (int i = 0; i < loginInfo.size(); i += 2) {
             if (loginInfo.get(i).equals(username)) {
-                point++;
-                break;
+                return "username match";
             }
         }
-        return point;
+        return "username wrong";
     }
 
-    public int checkStudent(ArrayList<String> loginInfo, String password, int point) {
+    public String checkStudent(ArrayList<String> loginInfo, String password) {
         for (int i = 1; i < loginInfo.size(); i += 2) {
             if (loginInfo.get(i).equals(password + "S")) {
-                point++;
-                break;
+                return "pass match";
             }
         }
-        return point;
+        return "pass wrong";
     }
 
-    public int checkTeacher(ArrayList<String> loginInfo, String password, int point) {
+    public String checkTeacher(ArrayList<String> loginInfo, String password) {
         for (int i = 1; i < loginInfo.size(); i += 2) {
             if (loginInfo.get(i).equals(password + "T")) {
-                point++;
-                break;
+                return "pass match";
             }
         }
-        return point;
+        return "pass wrong";
     }
 
     public String deleteAccount(ArrayList<String> loginInfo, String username, String password) throws IOException {
