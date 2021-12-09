@@ -64,8 +64,13 @@ class ClientHandler extends Thread {
         while (true) {
             try {
                 String line;
+
                 while (!(line = dis.readUTF()).equals("stop")) {
                     try {
+                        if(line.equals("closing")) {
+                            System.out.println("A client has closed " + s);
+                            return;
+                        }
                         if (line.endsWith("00")) {
                             loginInfo = user.createFile();
                             System.out.println("This is a  username");
