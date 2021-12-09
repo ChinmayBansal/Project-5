@@ -67,11 +67,13 @@ class ClientHandler extends Thread {
                 while (!(line = dis.readUTF()).equals("stop")) {
                     try {
                         if (line.endsWith("00")) {
-                            System.out.println("This is a teacher username");
+                            loginInfo = user.createFile();
+                            System.out.println("This is a  username");
                             line = line.substring(0, line.length() - 2);
                             user.setUsername(line);
                         }
                         else if (line.endsWith("01")) {
+                            loginInfo = user.createFile();
                             System.out.println("This is a teacher password");
                             line = line.substring(0, line.length() - 2);
                             String nameTaken = user.createName(loginInfo, user.getUsername(),false);
@@ -83,13 +85,8 @@ class ClientHandler extends Thread {
                                 break;
                             }
                         }
-                        else if (line.endsWith("02")) {
-                            System.out.println("This is a student username");
-                            line = line.substring(0, line.length() - 2);
-                             user.setUsername(line);
-                            break;
-                        }
                         else if (line.endsWith("03")) {
+                            loginInfo = user.createFile();
                             System.out.println("This is a student password");
                             line = line.substring(0, line.length() - 2);
                             String nameTaken = user.createName(loginInfo, user.getUsername(), false);
@@ -104,6 +101,7 @@ class ClientHandler extends Thread {
                         }
 
                         else if (line.endsWith("04")) {
+                            loginInfo = user.createFile();
                             System.out.println("This is a teacher username");
                             line = line.substring(0, line.length() - 2);
                             String nameMatch = user.checkUsername(loginInfo,line);
@@ -117,6 +115,7 @@ class ClientHandler extends Thread {
                         }
 
                         else if (line.endsWith("05")) {
+                            loginInfo = user.createFile();
                             System.out.println("This is a teacher password");
                             line = line.substring(0, line.length() - 2);
                             String passMatch = user.checkTeacher(loginInfo,line);
@@ -130,6 +129,7 @@ class ClientHandler extends Thread {
                         }
 
                         else if (line.endsWith("06")) {
+                            loginInfo = user.createFile();
                             System.out.println("This is a student password");
                             line = line.substring(0, line.length() - 2);
                             String passMatch = user.checkStudent(loginInfo,line);
