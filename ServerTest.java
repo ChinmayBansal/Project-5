@@ -16,6 +16,8 @@ public class ServerTest {
             try {
                 // socket object to receive incoming client requests
                 s = ss.accept();
+                System.out.println("A client has connected " + s);
+
 
 
                 // obtaining input and out streams
@@ -64,12 +66,12 @@ class ClientHandler extends Thread {
                 String line;
                 while (!(line = dis.readUTF()).equals("stop")) {
                     try {
-                        if (line.substring(line.length() - 2).equals("00")) {
+                        if (line.endsWith("00")) {
                             System.out.println("This is a teacher username");
                             line = line.substring(0, line.length() - 2);
                             user.setUsername(line);
                         }
-                        else if (line.substring(line.length() - 2).equals("01")) {
+                        else if (line.endsWith("01")) {
                             System.out.println("This is a teacher password");
                             line = line.substring(0, line.length() - 2);
                             String nameTaken = user.createName(loginInfo, user.getUsername(),false);
@@ -81,13 +83,13 @@ class ClientHandler extends Thread {
                                 break;
                             }
                         }
-                        else if (line.substring(line.length() - 2).equals("02")) {
+                        else if (line.endsWith("02")) {
                             System.out.println("This is a student username");
                             line = line.substring(0, line.length() - 2);
                              user.setUsername(line);
                             break;
                         }
-                        else if (line.substring(line.length() - 2).equals("03")) {
+                        else if (line.endsWith("03")) {
                             System.out.println("This is a student password");
                             line = line.substring(0, line.length() - 2);
                             String nameTaken = user.createName(loginInfo, user.getUsername(), false);
@@ -100,6 +102,46 @@ class ClientHandler extends Thread {
                                 break;
                             }
                         }
+
+                        else if (line.endsWith("04")) {
+                            System.out.println("This is a teacher username");
+                            line = line.substring(0, line.length() - 2);
+                            String nameMatch = user.checkUsername(loginInfo,line);
+                            if(nameMatch.equals("username match")) {
+                                dos.writeUTF("username match");
+                            }
+                            else {
+                                dos.writeUTF("username wrong");
+                                break;
+                            }
+                        }
+
+                        else if (line.endsWith("05")) {
+                            System.out.println("This is a teacher password");
+                            line = line.substring(0, line.length() - 2);
+                            String passMatch = user.checkTeacher(loginInfo,line);
+                            if(passMatch.equals("pass match")) {
+                                dos.writeUTF("pass match");
+                            }
+                            else {
+                                dos.writeUTF("pass wrong");
+                                break;
+                            }
+                        }
+
+                        else if (line.endsWith("06")) {
+                            System.out.println("This is a student password");
+                            line = line.substring(0, line.length() - 2);
+                            String passMatch = user.checkStudent(loginInfo,line);
+                            if(passMatch.equals("pass match")) {
+                                dos.writeUTF("pass match");
+                            }
+                            else {
+                                dos.writeUTF("pass wrong");
+                                break;
+                            }
+                        }
+
                         else if (line.equals("Exit")) {
                             System.out.println("Client " + this.s + " sends exit...");
                             System.out.println("Closing this connection.");
@@ -123,15 +165,18 @@ class ClientHandler extends Thread {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
-
-        try {
-            // closing resources
-            this.dis.close();
-            this.dos.close();
-
-        } catch (IOException e) {
-            e.printStackTrace();
+            finally {
+                try {
+                    this.dis.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    this.dos.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 }
