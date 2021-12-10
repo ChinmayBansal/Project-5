@@ -375,7 +375,7 @@ public class StudentGUI extends JComponent implements Runnable {
     void quizNotFound() {
         JFrame frame = new JFrame("Error!");
         Container content = frame.getContentPane();
-        JLabel message = new JLabel("Error! \n Enter Another Course Name");
+        JLabel message = new JLabel("Error! \n Enter Another Quiz Name");
         JTextField courseName = new JTextField(10);
         JButton continueButton = new JButton("Continue");
         JPanel panel = new JPanel();
@@ -439,35 +439,5 @@ public class StudentGUI extends JComponent implements Runnable {
         frame.setVisible(true);
     }
     void confirmation() {
-        JFrame f = new JFrame("Operation Complete");
-        f.addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                super.windowClosing(e);
-                System.out.println("Client force closed");
-                //messageToServer("closing");
-            }
-        });
-        Container c = f.getContentPane();
-        JTextField a = new JTextField(
-                "Update Complete"
-        );
-        JButton finish = new JButton("Finish");
-        finish.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                f.dispose();
-                f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            }
-        });
-        JPanel panel = new JPanel();
-        panel.add(a);
-        panel.add(finish);
-        c.add(a, panel);
-        f.setSize(300, 300);
-        f.setLocationRelativeTo(null);
-        f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        f.setVisible(true);
-
-    }
+        //
 }
