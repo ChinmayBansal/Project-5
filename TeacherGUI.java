@@ -13,7 +13,6 @@ public class TeacherGUI extends JComponent implements Runnable {
     @Override
     public void run() {
         menu();
-        //editInformation();
     }
 
     void menu() {
@@ -89,53 +88,44 @@ public class TeacherGUI extends JComponent implements Runnable {
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setVisible(true);
-
     }
     void createCourse() {
-        JFrame frame = new JFrame("Create Course");
-        frame.addWindowListener(new WindowAdapter() {
+        JFrame frame_cc = new JFrame("Create Course");
+        //closes program if user closes gui
+        frame_cc.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
                 super.windowClosing(e);
                 System.out.println("Client force closed");
-                //messageToServer("closing");
             }
         });
-        Container content = frame.getContentPane();
+        Container content = frame_cc.getContentPane();
         JLabel question = new JLabel("What do you want to name the course?");
         JLabel question2 = new JLabel("Two letters and 3 numbers Ex. CS180");
         JTextField courseName = new JTextField(10);
         JButton enter = new JButton("Enter");
-
-        //if the course is found
+        //**if the course is found
         enter.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                frame.dispose();
+                frame_cc.dispose();
                 addedConformation();
-                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                frame_cc.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             }
         });
-
-        //if the course is not found
-//        enter.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                frame.dispose();
-//                courseNotFound();
-//                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-//            }
-//        });
+        //**if the course is not found
+//        JOptionPane.showMessageDialog(frame_cc, "Error, course not found");
+//        frame_cc.setVisible(false);
         JPanel panel = new JPanel();
         panel.add(question);
         panel.add(question2);
         panel.add(courseName);
         panel.add(enter);
         content.add(panel, BorderLayout.CENTER);
-        frame.setSize(600, 600);
-        frame.setLocationRelativeTo(null);
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.setVisible(true);
+        frame_cc.setSize(600, 600);
+        frame_cc.setLocationRelativeTo(null);
+        frame_cc.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame_cc.setVisible(true);
     }
 
     void editCourse() {
@@ -210,14 +200,7 @@ public class TeacherGUI extends JComponent implements Runnable {
             }
         });
         //if the course is not found
-//        enter.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                frame.dispose();
-//                courseNotFound();
-//                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-//            }
-//        });
+
 
         JPanel panel = new JPanel();
         panel.add(question);
