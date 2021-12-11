@@ -3,7 +3,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.*;
-import java.io.*;
 
 public class TeacherGUI extends JComponent implements Runnable {
 
@@ -12,6 +11,7 @@ public class TeacherGUI extends JComponent implements Runnable {
     }
     @Override
     public void run() {
+        //main page
         menu();
     }
 
@@ -27,6 +27,7 @@ public class TeacherGUI extends JComponent implements Runnable {
             }
         });
         Container content = frame.getContentPane();
+
 
         JButton option1 = new JButton("Create Course");
         option1.addActionListener(new ActionListener() {
@@ -199,8 +200,9 @@ public class TeacherGUI extends JComponent implements Runnable {
                 frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             }
         });
-        //if the course is not found
-
+        //**if the course is not found
+//        JOptionPane.showMessageDialog(frame, "Error, course is not found");
+//        frame.setVisible(false);
 
         JPanel panel = new JPanel();
         panel.add(question);
@@ -286,31 +288,7 @@ public class TeacherGUI extends JComponent implements Runnable {
     }
 
 
-    //second slides
-    void courseNotFound() {
-        JFrame frame = new JFrame("Error!");
-        frame.addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                super.windowClosing(e);
-                System.out.println("Client force closed");
-                //messageToServer("closing");
-            }
-        });
-        Container content = frame.getContentPane();
-        JLabel message = new JLabel("Error! \n Enter Another Course Name");
-        JTextField courseName = new JTextField(10);
-        JButton continueButton = new JButton("Continue");
-        JPanel panel = new JPanel();
-        panel.add(message);
-        panel.add(courseName);
-        panel.add(continueButton);
-        content.add(panel, BorderLayout.CENTER);
-        frame.setSize(600, 600);
-        frame.setLocationRelativeTo(null);
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.setVisible(true);
-    }
+    //second set of frames
 
     void addedConformation() {
         JFrame frame = new JFrame("Course Added!");
@@ -731,6 +709,5 @@ public class TeacherGUI extends JComponent implements Runnable {
         f.setLocationRelativeTo(null);
         f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         f.setVisible(true);
-
     }
 }
