@@ -12,6 +12,7 @@ import java.util.Scanner;
  */
 public class User {
     private String username;
+    private String password;
 
 
     public User() {
@@ -23,6 +24,12 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+    public String getPassword() {
+        return password;
+    }
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public ArrayList<String> createFile() {
@@ -76,7 +83,7 @@ public class User {
         }
     }
 
-    public void teacherPass(ArrayList<String> loginInfo, String password, String username) throws IOException {
+    public String teacherPass(ArrayList<String> loginInfo, String password, String username) throws IOException {
         String teacher = "T";
         String finalPassTeacher = password + teacher;
 
@@ -89,6 +96,7 @@ public class User {
         } catch (IOException e) {
             throw e;
         }
+        return "passChanged";
     }
 
     public String checkUsername(ArrayList<String> loginInfo, String username) {
@@ -136,11 +144,19 @@ public class User {
             throw e;
         }
 
-        return "Account deleted.\nThank you for using the app.";
+        return "AccountDelete";
     }
 
     public String changeUsername(ArrayList<String> loginInfo, String username, String changeName) throws IOException {
+        String changeOrNot = "";
         for (int i = 0; i < loginInfo.size(); i += 2) {
+            if(loginInfo.get(i).equals(changeName)) {
+                changeOrNot = "usernameNoChange";
+                return changeOrNot;
+            }
+        }
+
+        for(int i = 0; i < loginInfo.size(); i += 2) {
             if (loginInfo.get(i).equals(username)) {
                 int index = loginInfo.indexOf(username);
                 loginInfo.set(index, changeName);
@@ -157,7 +173,9 @@ public class User {
             throw e;
         }
 
-        return "Username changed.";
+        changeOrNot = "UsernameChanged";
+
+        return changeOrNot;
     }
 
     public String changeTeacherPass(ArrayList<String> loginInfo, String password, String changePass)
