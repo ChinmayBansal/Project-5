@@ -31,6 +31,7 @@ public class ServerTest {
                 // Invoking the start() method
                 t.start();
 
+
             } catch (Exception e) {
                 s.close();
                 e.printStackTrace();
@@ -64,12 +65,12 @@ class ClientHandler extends Thread {
         while (true) {
             try {
                 String line;
-
                 while (!(line = dis.readUTF()).equals("stop")) {
                     try {
-                        if(line.equals("closing")) {
-                            System.out.println("A client has closed " + s);
-                            return;
+
+                        if(line.endsWith("000")) {
+                            dos.writeUTF("continue");
+                            break;
                         }
                         if (line.endsWith("00")) {
                             loginInfo = user.createFile();
@@ -85,6 +86,7 @@ class ClientHandler extends Thread {
                             if (nameTaken.equals("taken")) {
                                 dos.writeUTF("name taken");
                             } else {
+                                user.setPassword(line);
                                 user.teacherPass(loginInfo,line,user.getUsername());
                                 dos.writeUTF("name available");
                                 break;
@@ -111,6 +113,7 @@ class ClientHandler extends Thread {
                             line = line.substring(0, line.length() - 2);
                             String nameMatch = user.checkUsername(loginInfo,line);
                             if(nameMatch.equals("username match")) {
+                                user.setUsername(line);
                                 dos.writeUTF("username match");
                             }
                             else {
@@ -121,11 +124,13 @@ class ClientHandler extends Thread {
 
                         else if (line.endsWith("05")) {
                             loginInfo = user.createFile();
-                            System.out.println("This is a teacher password");
+                            System.out.println("This is a teacher password for logging in");
                             line = line.substring(0, line.length() - 2);
                             String passMatch = user.checkTeacher(loginInfo,line);
                             if(passMatch.equals("pass match")) {
+                                user.setPassword(line);
                                 dos.writeUTF("pass match");
+
                             }
                             else {
                                 dos.writeUTF("pass wrong");
@@ -146,6 +151,36 @@ class ClientHandler extends Thread {
                                 break;
                             }
                         }
+                        else if (line.endsWith("changeUsername")) {
+                            loginInfo = user.createFile();
+                            System.out.println("User is trying to change username");
+                            line = line.substring(0, line.length() - 14);
+                            System.out.println(line);
+                            System.out.println(user.getUsername());
+                            String changeUsername = user.changeUsername(loginInfo, user.getUsername(), line);
+                            System.out.println(changeUsername);
+                            if(changeUsername.equals("UsernameChanged")) {
+                                dos.writeUTF("usernameChanged");
+                            }
+                            else {
+                                dos.writeUTF("usernameNoChange");
+                                break;
+                            }
+                        }
+                        else if(line.endsWith("changePass")) {
+                            loginInfo = user.createFile();
+                            System.out.println("The user is trying to change password");
+                            line = line.substring(0, line.length() -10);
+                            System.out.println(user.getPassword());
+                            user.changeTeacherPass(loginInfo, user.getPassword(), line);
+                            dos.writeUTF("passChanged");
+                        }
+
+                        else if(line.endsWith("delete")) {
+                            loginInfo = user.createFile();
+                            System.out.println("User is trying to delete account");
+                            dos.writeUTF(user.deleteAccount(loginInfo, user.getUsername(), user.getPassword()));
+                        }
 
                         else if (line.equals("Exit")) {
                             System.out.println("Client " + this.s + " sends exit...");
@@ -154,32 +189,19 @@ class ClientHandler extends Thread {
                             System.out.println("Connection closed");
                             break;
                         }
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                    } catch (SocketException se) {
+                        s.close();
+                        dos.close();
+                        dis.close();
                     }
                 }
-
-                if (line.equals("Exit")) {
-                    System.out.println("Client " + this.s + " sends exit...");
-                    System.out.println("Closing this connection.");
-                    this.s.close();
-                    System.out.println("Connection closed");
-                    break;
-                }
-
             } catch (IOException e) {
-                e.printStackTrace();
-            }
-            finally {
                 try {
-                    this.dis.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                try {
-                    this.dos.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
+                    s.close();
+                    dis.close();
+                    dos.close();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
                 }
             }
         }
