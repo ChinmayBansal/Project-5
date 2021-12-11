@@ -2,8 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -13,8 +11,6 @@ import java.net.Socket;
 // Client class
 public class ClientTest extends JComponent implements Runnable {
     private static Socket s;
-    private DataInputStream dis;
-    private DataOutputStream dos;
 
     public static void main(String[] args) throws IOException {
         try {
@@ -24,7 +20,8 @@ public class ClientTest extends JComponent implements Runnable {
             // establish the connection with server port 5056
             s = new Socket(ip, 4242);
 
-                SwingUtilities.invokeLater(new ClientTest());
+
+            SwingUtilities.invokeLater(new ClientTest());
 
 
         } catch (Exception e) {
@@ -82,18 +79,6 @@ public class ClientTest extends JComponent implements Runnable {
         frame1.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame1.setVisible(true);
 
-        frame1.addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                super.windowClosing(e);
-                try {
-                    System.out.println("Client force closed");
-                    messageToServer("closing");
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                }
-            }
-        });
         //Once user clicks the create user button//
         createUser.addActionListener(new ActionListener() {
             @Override
@@ -112,19 +97,6 @@ public class ClientTest extends JComponent implements Runnable {
                 frame2.setLocationRelativeTo(null);
                 frame2.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 frame2.setVisible(true);
-
-                frame2.addWindowListener(new WindowAdapter() {
-                    @Override
-                    public void windowClosing(WindowEvent e) {
-                        super.windowClosing(e);
-                        try {
-                            System.out.println("Client force closed");
-                            messageToServer("closing");
-                        } catch (IOException ex) {
-                            ex.printStackTrace();
-                        }
-                    }
-                });
 
                 //User creating a teacher account//
                 teacherButton.addActionListener(new ActionListener() {
@@ -150,18 +122,6 @@ public class ClientTest extends JComponent implements Runnable {
                         frame3.setLocationRelativeTo(null);
                         frame3.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                         frame3.setVisible(true);
-                        frame3.addWindowListener(new WindowAdapter() {
-                            @Override
-                            public void windowClosing(WindowEvent e) {
-                                super.windowClosing(e);
-                                try {
-                                    System.out.println("Client force closed");
-                                    messageToServer("closing");
-                                } catch (IOException ex) {
-                                    ex.printStackTrace();
-                                }
-                            }
-                        });
 
                         //user submitting the username and password
                         enter.addActionListener(new ActionListener() {
@@ -215,18 +175,6 @@ public class ClientTest extends JComponent implements Runnable {
                         frame4.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                         frame4.setVisible(true);
 
-                        frame4.addWindowListener(new WindowAdapter() {
-                            @Override
-                            public void windowClosing(WindowEvent e) {
-                                super.windowClosing(e);
-                                try {
-                                    System.out.println("Client force closed");
-                                    messageToServer("closing");
-                                } catch (IOException ex) {
-                                    ex.printStackTrace();
-                                }
-                            }
-                        });
 
                         // user entering username and password
                         enter.addActionListener(new ActionListener() {
@@ -245,7 +193,11 @@ public class ClientTest extends JComponent implements Runnable {
                                                 "Profile Created", "Success",
                                                 JOptionPane.INFORMATION_MESSAGE);
                                         frame4.setVisible(false);
-                                        frame1.setVisible(true);
+                                        messageToServer("continue000");
+                                        String cont = messageFromServer();
+                                        if (cont.equals("continue")) {
+                                            frame1.setVisible(true);
+                                        }
                                     }
                                 } catch (IOException ex) {
                                     ex.printStackTrace();
@@ -276,24 +228,11 @@ public class ClientTest extends JComponent implements Runnable {
                 frame5.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 frame5.setVisible(true);
 
-                frame5.addWindowListener(new WindowAdapter() {
-                    @Override
-                    public void windowClosing(WindowEvent e) {
-                        super.windowClosing(e);
-                        try {
-                            System.out.println("Client force closed");
-                            messageToServer("closing");
-                        } catch (IOException ex) {
-                            ex.printStackTrace();
-                        }
-                    }
-                });
 
                 teacherLogin.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         frame5.setVisible(false);
-                        System.out.println("Program reaches this far");
 
                         JFrame frame6 = new JFrame("Login");
                         Container content = frame6.getContentPane();
@@ -314,43 +253,269 @@ public class ClientTest extends JComponent implements Runnable {
                         frame6.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                         frame6.setVisible(true);
 
-                        frame6.addWindowListener(new WindowAdapter() {
-                            @Override
-                            public void windowClosing(WindowEvent e) {
-                                super.windowClosing(e);
-                                try {
-                                    System.out.println("Client force closed");
-                                    messageToServer("closing");
-                                } catch (IOException ex) {
-                                    ex.printStackTrace();
-                                }
-                            }
-                        });
 
                         enterLogin.addActionListener(new ActionListener() {
                             @Override
                             public void actionPerformed(ActionEvent e) {
                                 try {
                                     int checker = 0;
-                                    System.out.println("Program reaches this far");
                                     messageToServer(loginTeacherUsername.getText() + "04");
-                                    System.out.println("Program reaches this far");
                                     String checkUsername = messageFromServer();
-                                    System.out.println("Program reaches this far");
                                     if (checkUsername.equals("username match")) {
                                         checker++;
                                     }
                                     messageToServer(loginTeacherPassword.getText() + "05");
                                     String checkTeacherPass = messageFromServer();
-                                    if(checkTeacherPass.equals("pass match")) {
+                                    if (checkTeacherPass.equals("pass match")) {
                                         checker++;
                                     }
 
                                     if (checker == 2) {
+                                        System.out.println("User logged in");
                                         JOptionPane.showMessageDialog(null,
                                                 "Successful Login", "Teacher",
                                                 JOptionPane.INFORMATION_MESSAGE);
+                                        frame1.setVisible(false);
+                                        frame6.setVisible(false);
+
+                                        //teacher menu
+                                        JFrame teacherMenuFrame = new JFrame("Teacher Menu");
+
+                                        Container content = teacherMenuFrame.getContentPane();
+
+                                        JButton createCourse = new JButton("Create Course");
+                                        createCourse.addActionListener(new ActionListener() {
+                                            @Override
+                                            public void actionPerformed(ActionEvent e) {
+                                                teacherMenuFrame.dispose();
+//                                                createCourse();
+                                                teacherMenuFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                                            }
+                                        });
+
+                                        JButton editCourse = new JButton("Edit Course");
+                                        editCourse.addActionListener(new ActionListener() {
+                                            @Override
+                                            public void actionPerformed(ActionEvent e) {
+                                                teacherMenuFrame.dispose();
+//                                                editCourse();
+                                                teacherMenuFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                                            }
+                                        });
+
+                                        JButton viewSubmissions = new JButton("View Submissions");
+                                        viewSubmissions.addActionListener(new ActionListener() {
+                                            @Override
+                                            public void actionPerformed(ActionEvent e) {
+                                                teacherMenuFrame.dispose();
+//                                                viewSubmissions();
+                                                teacherMenuFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                                            }
+                                        });
+
+                                        JButton editInformation = new JButton("Edit Information");
+                                        editInformation.addActionListener(new ActionListener() {
+                                            @Override
+                                            public void actionPerformed(ActionEvent e) {
+                                                teacherMenuFrame.dispose();
+                                                JFrame editInformation1 = new JFrame("Edit Information");
+                                                Container content = editInformation1.getContentPane();
+                                                JLabel question = new JLabel("Choose which one to change");
+                                                JButton userName = new JButton("Username");
+                                                userName.addActionListener(new ActionListener() {
+                                                    @Override
+                                                    public void actionPerformed(ActionEvent e) {
+                                                        editInformation1.dispose();
+                                                        JFrame frameTeacherName = new JFrame("Username Field");
+
+                                                        Container content = frameTeacherName.getContentPane();
+                                                        JLabel message = new JLabel("Enter new username: ");
+                                                        JTextField userName = new JTextField(12);
+                                                        JButton enterUsername = new JButton("Enter");
+                                                        enterUsername.addActionListener(new ActionListener() {
+                                                            @Override
+                                                            public void actionPerformed(ActionEvent e) {
+                                                                frameTeacherName.dispose();
+                                                                try {
+                                                                    messageToServer(userName.getText() +
+                                                                            "changeUsername");
+                                                                    String newName = messageFromServer();
+
+                                                                    if (newName.equals("usernameChanged")) {
+                                                                        JOptionPane.showMessageDialog(
+                                                                                null,
+                                                                                "Username Changed"
+                                                                                , "Teacher",
+                                                                                JOptionPane.INFORMATION_MESSAGE);
+                                                                        teacherMenuFrame.setVisible(true);
+                                                                        frameTeacherName.setVisible(false);
+
+                                                                    } else {
+                                                                        JOptionPane.showMessageDialog(
+                                                                                null,
+                                                                                "Username could not be" +
+                                                                                        " changed,",
+                                                                                "Teacher",
+                                                                                JOptionPane.INFORMATION_MESSAGE);
+                                                                        teacherMenuFrame.setVisible(true);
+                                                                    }
+                                                                } catch (IOException ex) {
+                                                                    ex.printStackTrace();
+                                                                }
+                                                                frameTeacherName.setDefaultCloseOperation
+                                                                        (JFrame.DISPOSE_ON_CLOSE);
+                                                            }
+                                                        });
+                                                        JPanel panel = new JPanel();
+                                                        panel.add(message);
+                                                        panel.add(userName);
+                                                        panel.add(enterUsername);
+                                                        content.add(panel, BorderLayout.CENTER);
+                                                        frameTeacherName.setSize(600, 600);
+                                                        frameTeacherName.setLocationRelativeTo(null);
+                                                        frameTeacherName.setDefaultCloseOperation
+                                                                (JFrame.DISPOSE_ON_CLOSE);
+                                                        frameTeacherName.setVisible(true);
+                                                        editInformation1.setDefaultCloseOperation
+                                                                (JFrame.DISPOSE_ON_CLOSE);
+                                                    }
+                                                });
+                                                JButton password = new JButton("Password");
+                                                password.addActionListener(new ActionListener() {
+                                                    @Override
+                                                    public void actionPerformed(ActionEvent e) {
+                                                        editInformation1.dispose();
+                                                        JFrame frame = new JFrame("Password Field");
+
+                                                        Container content = frame.getContentPane();
+                                                        JLabel message = new JLabel("Enter new password: ");
+                                                        JTextField changePassword = new JTextField(12);
+                                                        JButton enterPassword = new JButton("Enter");
+                                                        enterPassword.addActionListener(new ActionListener() {
+                                                            @Override
+                                                            public void actionPerformed(ActionEvent e) {
+                                                                frame.dispose();
+                                                                try {
+                                                                    messageToServer(changePassword.getText()
+                                                                            + "changePass");
+                                                                    String newPass = messageFromServer();
+                                                                    if (newPass.equals("passChanged")) {
+                                                                        JOptionPane.showMessageDialog(
+                                                                                null,
+                                                                                "Password changed,",
+                                                                                "Teacher",
+                                                                                JOptionPane.INFORMATION_MESSAGE);
+                                                                        teacherMenuFrame.setVisible(true);
+                                                                    }
+
+                                                                } catch (Exception ex) {
+                                                                    ex.printStackTrace();
+                                                                }
+                                                                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                                                            }
+                                                        });
+                                                        JPanel panel = new JPanel();
+                                                        panel.add(message);
+                                                        panel.add(changePassword);
+                                                        panel.add(enterPassword);
+                                                        content.add(panel, BorderLayout.CENTER);
+                                                        frame.setSize(600, 600);
+                                                        frame.setLocationRelativeTo(null);
+                                                        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                                                        frame.setVisible(true);
+                                                        editInformation1.setDefaultCloseOperation
+                                                                (JFrame.DISPOSE_ON_CLOSE);
+                                                    }
+                                                });
+                                                JButton deleteAccount = new JButton("Delete Account");
+                                                deleteAccount.addActionListener(new ActionListener() {
+                                                    @Override
+                                                    public void actionPerformed(ActionEvent e) {
+                                                        editInformation1.dispose();
+                                                        JFrame frame = new JFrame("Delete Account");
+                                                        Container content = frame.getContentPane();
+                                                        JLabel message = new JLabel("Delete account");
+                                                        JButton continueDelete = new JButton("Continue");
+                                                        JButton exitDelete = new JButton("No");
+                                                        JPanel panel = new JPanel();
+                                                        panel.add(message);
+                                                        panel.add(continueDelete);
+                                                        panel.add(exitDelete);
+                                                        content.add(panel, BorderLayout.CENTER);
+                                                        frame.setSize(600, 600);
+                                                        frame.setLocationRelativeTo(null);
+                                                        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                                                        frame.setVisible(true);
+                                                        editInformation1.setDefaultCloseOperation
+                                                                (JFrame.DISPOSE_ON_CLOSE);
+                                                        continueDelete.addActionListener(new ActionListener() {
+                                                            @Override
+                                                            public void actionPerformed(ActionEvent e) {
+                                                                try {
+                                                                    messageToServer("delete");
+                                                                    String deleteOrNot = messageFromServer();
+                                                                    if (deleteOrNot.equals("AccountDelete")) {
+                                                                        JOptionPane.showMessageDialog(
+                                                                                null,
+                                                                                "Account Deleted",
+                                                                                "Delete Account",
+                                                                                JOptionPane.INFORMATION_MESSAGE);
+                                                                        frame.setVisible(false);
+                                                                        frame1.setVisible(true);
+                                                                    }
+                                                                } catch (IOException ex) {
+                                                                    ex.printStackTrace();
+                                                                }
+                                                            }
+                                                        });
+
+                                                    }
+                                                });
+                                                JPanel panel = new JPanel();
+                                                panel.add(question);
+                                                panel.add(userName);
+                                                panel.add(password);
+                                                panel.add(deleteAccount);
+                                                content.add(panel, BorderLayout.CENTER);
+                                                editInformation1.setSize(600, 600);
+                                                editInformation1.setLocationRelativeTo(null);
+                                                editInformation1.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                                                editInformation1.setVisible(true);
+                                                teacherMenuFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                                            }
+                                        });
+
+                                        JButton logoutButton = new JButton("Logout");
+                                        logoutButton.addActionListener(new ActionListener() {
+                                            @Override
+                                            public void actionPerformed(ActionEvent e) {
+                                                teacherMenuFrame.dispose();
+                                                JOptionPane.showMessageDialog(null,
+                                                        "Thank you using Quiz App", "Logout",
+                                                        JOptionPane.INFORMATION_MESSAGE);
+                                                teacherMenuFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                                                try {
+                                                    messageToServer("Exit");
+                                                } catch (IOException ex) {
+                                                    ex.printStackTrace();
+                                                }
+                                            }
+                                        });
+                                        JPanel panel = new JPanel();
+                                        panel.add(createCourse);
+                                        panel.add(editCourse);
+                                        panel.add(viewSubmissions);
+                                        panel.add(editInformation);
+                                        panel.add(logoutButton);
+                                        content.add(panel, BorderLayout.CENTER);
+                                        teacherMenuFrame.setSize(600, 600);
+                                        teacherMenuFrame.setLocationRelativeTo(null);
+                                        teacherMenuFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                                        teacherMenuFrame.setVisible(true);
+                                        System.out.println("Code reaches this far");
+
                                     } else {
+                                        System.out.println("Invalid login");
                                         JOptionPane.showMessageDialog(null,
                                                 "Invalid Login", "Error",
                                                 JOptionPane.INFORMATION_MESSAGE);
@@ -358,11 +523,7 @@ public class ClientTest extends JComponent implements Runnable {
                                         frame1.setVisible(true);
                                     }
                                 } catch (IOException ex) {
-                                    int i = 0;
-                                    while (i < 2) {
-                                        ex.printStackTrace();
-                                        i++;
-                                    }
+                                    ex.printStackTrace();
                                 }
                             }
                         });
@@ -373,7 +534,6 @@ public class ClientTest extends JComponent implements Runnable {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         frame5.setVisible(false);
-                        System.out.println("Program reaches this far");
 
                         JFrame frame7 = new JFrame("Login");
                         Container content = frame7.getContentPane();
@@ -394,47 +554,34 @@ public class ClientTest extends JComponent implements Runnable {
                         frame7.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                         frame7.setVisible(true);
 
-                        frame7.addWindowListener(new WindowAdapter() {
-                            @Override
-                            public void windowClosing(WindowEvent e) {
-                                super.windowClosing(e);
-                                try {
-                                    System.out.println("Client force closed");
-                                    messageToServer("closing");
-                                } catch (IOException ex) {
-                                    ex.printStackTrace();
-                                }
-                            }
-                        });
-
                         enterLogin.addActionListener(new ActionListener() {
                             @Override
                             public void actionPerformed(ActionEvent e) {
                                 try {
                                     int checker = 0;
-                                    System.out.println("Program reaches this far");
                                     messageToServer(loginStudentUsername.getText() + "04");
-                                    System.out.println("Program reaches this far");
                                     String checkUsername = messageFromServer();
-                                    System.out.println("Program reaches this far");
                                     if (checkUsername.equals("username match")) {
                                         checker++;
                                     }
                                     messageToServer(loginStudentPassword.getText() + "06");
                                     String checkTeacherPass = messageFromServer();
-                                    if(checkTeacherPass.equals("pass match")) {
+                                    if (checkTeacherPass.equals("pass match")) {
                                         checker++;
                                     }
                                     if (checker == 2) {
+                                        System.out.println("Client logged in");
                                         JOptionPane.showMessageDialog(null,
                                                 "Successful Login", "Student",
                                                 JOptionPane.INFORMATION_MESSAGE);
+
                                     } else {
                                         JOptionPane.showMessageDialog(null,
                                                 "Invalid Login", "Error",
                                                 JOptionPane.INFORMATION_MESSAGE);
                                         frame7.setVisible(false);
                                         frame1.setVisible(true);
+
                                     }
                                 } catch (IOException ex) {
                                     int i = 0;
