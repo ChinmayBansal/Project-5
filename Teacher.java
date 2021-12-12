@@ -202,20 +202,15 @@ public class Teacher {
     }
 
 
-    public void addCourse(ArrayList<String> courses, String courseName, String username, Scanner scanner) throws IOException {
-        boolean taken = true;
-        do {
-            for (int i = 0; i < courses.size(); i++) {
-                if (courses.get(i).contains(courseName)) {
-                    System.out.println("Course name is already taken. Please try again.");
-                    courseName = scan.nextLine();
-                    taken = false;
-                    break;
-                } else {
-                    taken = true;
-                }
+    public String addCourse(ArrayList<String> courses, String courseName, String username) throws IOException {
+        int i = 0;
+        while (i < courses.size()) {
+            if (courses.get(i).contains(courseName)) {
+                return "courseExists";
             }
-        } while (!taken);
+            i++;
+        }
+
         String finalCourse = username + courseName;
         courses.add(finalCourse);
         try (PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter("CourseList.txt", true)))) {
@@ -223,6 +218,7 @@ public class Teacher {
         } catch (IOException e) {
             throw e;
         }
+        return "courseAdded";
     }
 
     public boolean goToCourse(ArrayList<String> courses, String courseName, String username) {
@@ -265,5 +261,5 @@ public class Teacher {
             System.out.println("Bad File");
         }
     }
-    
+
 }
