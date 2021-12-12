@@ -169,7 +169,7 @@ class ClientHandler extends Thread {
                         }
                         else if(line.endsWith("changePass")) {
                             loginInfo = user.createFile();
-                            System.out.println("The user is trying to change password");
+                            System.out.println("The user is trying to change a teacher password");
                             line = line.substring(0, line.length() -10);
                             System.out.println(user.getPassword());
                             user.changeTeacherPass(loginInfo, user.getPassword(), line);
@@ -181,7 +181,20 @@ class ClientHandler extends Thread {
                             System.out.println("User is trying to delete account");
                             dos.writeUTF(user.deleteAccount(loginInfo, user.getUsername(), user.getPassword()));
                         }
-
+                        else if(line.endsWith("createCourse")) {
+                            courseList = teacher.courseList();
+                            line = line.substring(0,line.length() -12);
+                            if(teacher.addCourse(courseList, line, user.getUsername()).equals("courseAdded")) {
+                                dos.writeUTF("courseAdded");
+                                courseList = teacher.courseList();
+                                teacher.createCourse(line, user.getUsername());
+                                System.out.println("course added");
+                            }
+                            else {
+                                System.out.println("Course exits");
+                                dos.writeUTF("courseExists");
+                            }
+                        }
                         else if (line.equals("Exit")) {
                             System.out.println("Client " + this.s + " sends exit...");
                             System.out.println("Closing this connection.");
