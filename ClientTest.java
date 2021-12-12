@@ -1,7 +1,10 @@
 import javax.swing.*;
+import javax.swing.plaf.basic.BasicSliderUI;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -64,6 +67,7 @@ public class ClientTest extends JComponent implements Runnable {
 
     @Override
     public void run() {
+        TeacherGui teacherGui = new TeacherGui();
 
         // First Gui
         JFrame frame1 = new JFrame("Quiz App");
@@ -288,8 +292,49 @@ public class ClientTest extends JComponent implements Runnable {
                                             @Override
                                             public void actionPerformed(ActionEvent e) {
                                                 teacherMenuFrame.dispose();
-//                                                createCourse();
                                                 teacherMenuFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                                                JFrame frame = new JFrame("Create Course");
+                                                Container content = frame.getContentPane();
+                                                JLabel question = new JLabel("What do you want to name the course?");
+                                                JLabel question2 = new JLabel("Two letters and 3 numbers Ex. CS180");
+                                                JTextField courseName = new JTextField(10);
+                                                JButton enter = new JButton("Enter");
+
+                                                //if the course is found
+                                                enter.addActionListener(new ActionListener() {
+                                                    @Override
+                                                    public void actionPerformed(ActionEvent e) {
+                                                        try {
+                                                            messageToServer(courseName.getText() + "createCourse");
+                                                            String courseOrNot = ClientTest.messageFromServer();
+                                                            if(courseOrNot.equals("courseAdded")) {
+                                                                JOptionPane.showMessageDialog(null, "Course has been added",
+                                                                        "Adding a Course", JOptionPane.INFORMATION_MESSAGE);
+                                                                frame.setVisible(false);
+                                                                teacherMenuFrame.setVisible(true);
+
+                                                            }
+                                                            else {
+                                                                JOptionPane.showMessageDialog(null, "Course cannot be added",
+                                                                        "Adding a Course", JOptionPane.ERROR_MESSAGE);
+                                                                courseName.setText("");
+                                                            }
+                                                        } catch (IOException ex) {
+                                                            ex.printStackTrace();
+                                                        }
+                                                        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                                                    }
+                                                });
+                                                JPanel panel = new JPanel();
+                                                panel.add(question);
+                                                panel.add(question2);
+                                                panel.add(courseName);
+                                                panel.add(enter);
+                                                content.add(panel, BorderLayout.CENTER);
+                                                frame.setSize(600, 600);
+                                                frame.setLocationRelativeTo(null);
+                                                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                                                frame.setVisible(true);
                                             }
                                         });
 
