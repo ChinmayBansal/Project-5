@@ -35,4 +35,4 @@ The teacher gui was never directly implemented in the client class but instead t
 
 # Notes:
 
-When creating a course, just coursename is fine. When uploading a quiz through a file for a teacher, include .txt and add a f or t next to the quiz so the program knows whether to randomize the quiz or not. When adding a quiz through text, add a number to each question. When a student is uploading
+When creating a course, just coursename is fine. When uploading a quiz through a file for a teacher, include .txt and add a f or t next to the quiz so the program knows whether to randomize the quiz or not. When adding a quiz through text, add a number to each question. When a student is uploading a file, do not put .txt.
