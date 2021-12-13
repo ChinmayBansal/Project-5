@@ -940,7 +940,7 @@ public class ClientTest extends JComponent implements Runnable {
                                         JOptionPane.showMessageDialog(null,
                                                 "Successful Login", "Student",
                                                 JOptionPane.INFORMATION_MESSAGE);
-
+                                        StudentGUI.studentMenu();
                                     } else {
                                         JOptionPane.showMessageDialog(null,
                                                 "Invalid Login", "Error",
