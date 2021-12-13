@@ -250,8 +250,8 @@ class ClientHandler extends Thread {
                             quiz.add(fromClient[4]);
                             quiz.add(fromClient[5]);
 
-                           teacher.addQuizTerminal(fromClient[0], user.getUsername(), quiz);
-                           break;
+                            teacher.addQuizTerminal(fromClient[0], user.getUsername(), quiz);
+                            break;
 
                         }
 
@@ -276,28 +276,29 @@ class ClientHandler extends Thread {
                                     quizSelectionNumber);
                             dos.writeUTF(String.valueOf(random));
                             dos.writeUTF(user.getUsername());
-                        else if (line.equals("Exit")) {
-                            System.out.println("Client " + this.s + " sends exit...");
-                            System.out.println("Closing this connection.");
-                            this.s.close();
-                            System.out.println("Connection closed");
-                            break;
                         }
-                    } catch (SocketException se) {
-                        s.close();
-                        dos.close();
-                        dis.close();
+                        else if (line.equals("Exit")) {
+                                System.out.println("Client " + this.s + " sends exit...");
+                                System.out.println("Closing this connection.");
+                                this.s.close();
+                                System.out.println("Connection closed");
+                                break;
+                            }
+                        } catch (SocketException se) {
+                            s.close();
+                            dos.close();
+                            dis.close();
+                        }
                     }
-                }
-            } catch (IOException e) {
-                try {
-                    s.close();
-                    dis.close();
-                    dos.close();
-                } catch (IOException ex) {
-                    ex.printStackTrace();
+                } catch (IOException e) {
+                    try {
+                        s.close();
+                        dis.close();
+                        dos.close();
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
                 }
             }
         }
     }
-}
