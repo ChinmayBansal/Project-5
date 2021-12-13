@@ -30,7 +30,8 @@ public class StudentGUI extends JComponent implements Runnable {
         Container content = frame1.getContentPane();
         JPanel panel = new JPanel();
         JButton option1 = new JButton("Take Quiz");
-        
+        JButton option2 = new JButton("Edit Information");
+
 
         option1.addActionListener(new ActionListener() {
             @Override
@@ -47,6 +48,42 @@ public class StudentGUI extends JComponent implements Runnable {
 
             }
         });
+
+        option2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame1.dispose();
+                JFrame frame6 = new JFrame("Student Menu");
+                Container content = frame6.getContentPane();
+                JPanel panel = new JPanel();
+                JButton option1 = new JButton("Logout");
+                JButton option2 = new JButton("Edit Username");
+                JButton option3 = new JButton("Edit Password");
+                panel.add(option1);
+                panel.add(option2);
+                panel.add(option3);
+                content.add(panel, BorderLayout.CENTER);
+                frame6.setSize(600, 600);
+                frame6.setLocationRelativeTo(null);
+                frame6.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                frame6.setVisible(true);
+                frame6.addWindowListener(new WindowAdapter() {
+                    @Override
+                    public void windowClosing(WindowEvent e) {
+                        super.windowClosing(e);
+                        try {
+                            System.out.println("Client force closed");
+                            ClientTest.messageToServer("closing");
+                        } catch (IOException ex) {
+                            ex.printStackTrace();
+                        }
+                    }
+                });
+                frame1.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+            }
+        });
+
         frame1.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -60,6 +97,7 @@ public class StudentGUI extends JComponent implements Runnable {
             }
         });
         panel.add(option1);
+        panel.add(option2);
         content.add(panel, BorderLayout.CENTER);
         frame1.setSize(600, 600);
         frame1.setLocationRelativeTo(null);
@@ -94,7 +132,7 @@ public class StudentGUI extends JComponent implements Runnable {
                 frame2.dispose();
                 frame2.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 try {
-                    
+
                     ClientTest.messageToServer(courseSelection.getText() + "studentCourseChoice");
                     ClientTest.messageToServer(quizSelection.getText() + "studentQuizChoice");
                     String random = ClientTest.messageFromServer();
@@ -211,70 +249,70 @@ public class StudentGUI extends JComponent implements Runnable {
                             while (true) {
                                 if (answersArray[i][0].equals(trackingArray[tester])) {
                                     JTextField questionText1 = new JTextField((i + 1) + ". " +
-                                            currentQuiz.get((tester * 5)).substring(2),10);
+                                            currentQuiz.get((tester * 5)).substring(2), 10);
                                     panel.add(questionText1);
                                     JTextField questionText2 = new JTextField("a. " +
-                                            answersArray[i][0].substring(2),10);
+                                            answersArray[i][0].substring(2), 10);
                                     panel.add(questionText2);
                                     JTextField questionText3 = new JTextField("b. " +
-                                            answersArray[i][1].substring(2),10);
+                                            answersArray[i][1].substring(2), 10);
                                     panel.add(questionText3);
                                     JTextField questionText4 = new JTextField("c. " +
-                                            answersArray[i][2].substring(2),10);
+                                            answersArray[i][2].substring(2), 10);
                                     panel.add(questionText4);
                                     JTextField questionText5 = new JTextField("d. " +
-                                            answersArray[i][3].substring(2),10);
+                                            answersArray[i][3].substring(2), 10);
                                     panel.add(questionText5);
                                     break;
                                 } else if (answersArray[i][1].equals(trackingArray[tester])) {
                                     JTextField questionText1 = new JTextField((i + 1) + ". " +
-                                            currentQuiz.get((tester * 5)).substring(2),10);
+                                            currentQuiz.get((tester * 5)).substring(2), 10);
                                     panel.add(questionText1);
                                     JTextField questionText2 = new JTextField("a. " +
-                                            answersArray[i][0].substring(2),10);
+                                            answersArray[i][0].substring(2), 10);
                                     panel.add(questionText2);
                                     JTextField questionText3 = new JTextField("b. " +
-                                            answersArray[i][1].substring(2),10);
+                                            answersArray[i][1].substring(2), 10);
                                     panel.add(questionText3);
                                     JTextField questionText4 = new JTextField("c. " +
-                                            answersArray[i][2].substring(2),10);
+                                            answersArray[i][2].substring(2), 10);
                                     panel.add(questionText4);
                                     JTextField questionText5 = new JTextField("d. " +
-                                            answersArray[i][3].substring(2),10);
+                                            answersArray[i][3].substring(2), 10);
                                     panel.add(questionText5);
                                     break;
                                 } else if (answersArray[i][2].equals(trackingArray[tester])) {
                                     JTextField questionText1 = new JTextField((i + 1) + ". " +
-                                            currentQuiz.get((tester * 5)).substring(2),10);
+                                            currentQuiz.get((tester * 5)).substring(2), 10);
                                     panel.add(questionText1);
                                     JTextField questionText2 = new JTextField("a. " +
-                                            answersArray[i][0].substring(2),10);
+                                            answersArray[i][0].substring(2), 10);
                                     panel.add(questionText2);
                                     JTextField questionText3 = new JTextField("b. " +
-                                            answersArray[i][1].substring(2),10);
+                                            answersArray[i][1].substring(2), 10);
                                     panel.add(questionText3);
                                     JTextField questionText4 = new JTextField("c. " +
-                                            answersArray[i][2].substring(2),10);
+                                            answersArray[i][2].substring(2), 10);
                                     panel.add(questionText4);
                                     JTextField questionText5 = new JTextField("d. " +
-                                            answersArray[i][3].substring(2),10);
+                                            answersArray[i][3].substring(2), 10);
                                     panel.add(questionText5);
                                     break;
                                 } else if (answersArray[i][3].equals(trackingArray[tester])) {
                                     JTextField questionText1 = new JTextField((i + 1) + ". " +
-                                            currentQuiz.get((tester * 5)).substring(2),10);
+                                            currentQuiz.get((tester * 5)).substring(2), 10);
                                     panel.add(questionText1);
                                     JTextField questionText2 = new JTextField("a. " +
-                                            answersArray[i][0].substring(2),10);
+                                            answersArray[i][0].substring(2), 10);
                                     panel.add(questionText2);
                                     JTextField questionText3 = new JTextField("b. " +
-                                            answersArray[i][1].substring(2),10);
+                                            answersArray[i][1].substring(2), 10);
                                     panel.add(questionText3);
                                     JTextField questionText4 = new JTextField("c. " +
-                                            answersArray[i][2].substring(2),10);
+                                            answersArray[i][2].substring(2), 10);
                                     panel.add(questionText4);
                                     JTextField questionText5 = new JTextField("d. " +
-                                            answersArray[i][3].substring(2),10);
+                                            answersArray[i][3].substring(2), 10);
                                     panel.add(questionText5);
                                     break;
                                 } else {
@@ -307,7 +345,7 @@ public class StudentGUI extends JComponent implements Runnable {
                             @Override
                             public void actionPerformed(ActionEvent e) {
                                 frame3.dispose();
-                                answerMethod(fileName,quizNumber,false,null,savedUsername);
+                                answerMethod(fileName, quizNumber, false, null, savedUsername);
                                 frame3.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                             }
                         });
@@ -333,8 +371,8 @@ public class StudentGUI extends JComponent implements Runnable {
                                     @Override
                                     public void actionPerformed(ActionEvent e) {
                                         frame5.dispose();
-                                        answerMethod(fileName,quizNumber,true,studentFileName.getText()
-                                                ,savedUsername);
+                                        answerMethod(fileName, quizNumber, true, studentFileName.getText()
+                                                , savedUsername);
                                         frame5.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                                     }
                                 });
@@ -361,7 +399,7 @@ public class StudentGUI extends JComponent implements Runnable {
             File readFile = new File(fileName + ".txt");
             FileReader fileReader = new FileReader(readFile);
             BufferedReader br = new BufferedReader(fileReader);
-            File writeFile = new File(fileName.substring(0,fileName.length()-5) + "Submissions.txt");
+            File writeFile = new File(fileName.substring(0, fileName.length() - 5) + "Submissions.txt");
             FileWriter filewriter = new FileWriter(writeFile, true);
             BufferedWriter bw = new BufferedWriter(filewriter);
             while ((line = br.readLine()) != null) {
