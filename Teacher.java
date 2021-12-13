@@ -24,49 +24,50 @@ public class Teacher {
     }
 
     //create quiz through terminal
-    public ArrayList<String> addQuizTerminal(String courseName, String username, Scanner scan) {
-        ArrayList<String> quiz_input = new ArrayList<String>();
+    public String addQuizTerminal(String courseName, String username, ArrayList<String> quiz_input) {
 
-        boolean loop = true;
-        int index;
+
+//        boolean loop = true;
+//        int index;
         //quiz loop
-        while (loop) {
-            System.out.println("What's the quiz number?");
-            index = scan.nextInt();
-            scan.nextLine();
-            System.out.println("Randomize this quiz? y/n");
-            String randomizeQuestion = scan.nextLine();
-            String quizNumber = null;
-            if (randomizeQuestion.equals("y") || randomizeQuestion.equals("Y")) {
-                quizNumber = "Quiz " + Integer.toString(index) + "t";
-            } else {
-                quizNumber = "Quiz " + Integer.toString(index) + "f";
-            }
-            quiz_input.add(quizNumber);
+//        while (loop) {
+//            System.out.println("What's the quiz number?");
+//            index = scan.nextInt();
+//            scan.nextLine();
+//            System.out.println("Randomize this quiz? y/n");
+//            String randomizeQuestion = scan.nextLine();
+//            String quizNumber = null;
+//            if (randomizeQuestion.equals("y") || randomizeQuestion.equals("Y")) {
+//                quizNumber = "Quiz " + Integer.toString(index) + "t";
+//            } else {
+//                quizNumber = "Quiz " + Integer.toString(index) + "f";
+//            }
+//            quiz_input.add(quizNumber);
 
-            System.out.println("How many questions would you like to add?");
-            int questions = scan.nextInt();
-            scan.nextLine();
-            for (int i = 0; i < questions; i++) {
+//            System.out.println("How many questions would you like to add?");
+//            int questions = scan.nextInt();
+//            scan.nextLine();
+//            for (int i = 0; i < questions; i++) {
+//
+//                //get the quiz from the terminal
+//                System.out.println("Add Question:");
+//                for (int j = 0; j < 5; j++) {
+//                    String line1 = scan.nextLine();
+//                    quiz_input.add(line1);
+//                }
+//            }
+            //Ex: Quiz 3f
 
-                //get the quiz from the terminal
-                System.out.println("Add Question:");
-                for (int j = 0; j < 5; j++) {
-                    String line1 = scan.nextLine();
-                    quiz_input.add(line1);
-                }
-            }
+//            System.out.println("Add Another Quiz? Y or N");
+//            String loop_question = scan.nextLine();
+//            if (loop_question.equals("Y") || loop_question.equals("y")) {
+//                loop = true;
+//                index++;
+//            } else {
+//                loop = false;
+//            }
 
-            System.out.println("Add Another Quiz? Y or N");
-            String loop_question = scan.nextLine();
-            if (loop_question.equals("Y") || loop_question.equals("y")) {
-                loop = true;
-                index++;
-            } else {
-                loop = false;
-            }
-
-        }
+//        }
         try {
             FileOutputStream fos = new FileOutputStream(username + courseName + ".txt", true);
             PrintWriter pw = new PrintWriter(fos);
@@ -83,7 +84,7 @@ public class Teacher {
         }
         //print case
         System.out.println("Quiz Added");
-        return quiz_input;
+        return "quizAdded";
     }
 
 
@@ -102,12 +103,13 @@ public class Teacher {
             System.out.println("The file doesn't exist!");
             e.printStackTrace();
         }
+        boolean checkFormat0 = (uploadQuiz.toString().contains("Quiz") || uploadQuiz.toString().contains("quiz"));
         boolean checkFormat1 = uploadQuiz.toString().contains("?");
         boolean checkFormat2 = uploadQuiz.toString().contains("a.");
         boolean checkFormat3 = uploadQuiz.toString().contains("b.");
         boolean checkFormat4 = uploadQuiz.toString().contains("c.");
         boolean checkFormat5 = uploadQuiz.toString().contains("d.");
-        if (checkFormat1 && checkFormat2 && checkFormat3 && checkFormat4 && checkFormat5) {
+        if (checkFormat0 && checkFormat1 && checkFormat2 && checkFormat3 && checkFormat4 && checkFormat5) {
             System.out.println("Correct");
             return uploadQuiz;
         } else {
@@ -198,6 +200,7 @@ public class Teacher {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        System.out.println(courseList);
         return courseList;
     }
 
