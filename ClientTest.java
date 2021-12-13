@@ -413,106 +413,106 @@ public class ClientTest extends JComponent implements Runnable {
                                                                                 "Multiple Question Enter");
                                                                         continueButton.addActionListener(
                                                                                 new ActionListener() {
-                                                                            @Override
-                                                                            public void actionPerformed(ActionEvent e)
-                                                                            {
-                                                                                try {
-                                                                                    messageToServer(courseNameText.
-                                                                                            getText() + ",Quiz " + 
-                                                                                            quizNum.getText() + 
-                                                                                            randomText.getText() +
-                                                                                            "quizName");
-                                                                                    messageToServer(
-                                                                                            courseNameText.getText()
-                                                                                                    + "," + 
-                                                                                                    questionText
-                                                                                                            .getText()
-                                                                                                    + ","+aChoice.
-                                                                                                    getText() + "," +
-                                                                                                    bChoice.getText() +
-                                                                                                    "," + cChoice.
-                                                                                                    getText() + "," +
-                                                                                                    dChoice.getText() +
-                                                                                                    "quizTextUpload");
+                                                                                    @Override
+                                                                                    public void actionPerformed(ActionEvent e)
+                                                                                    {
+                                                                                        try {
+                                                                                            messageToServer(courseNameText.
+                                                                                                    getText() + ",Quiz " +
+                                                                                                    quizNum.getText() +
+                                                                                                    randomText.getText() +
+                                                                                                    "quizName");
+                                                                                            messageToServer(
+                                                                                                    courseNameText.getText()
+                                                                                                            + "," +
+                                                                                                            questionText
+                                                                                                                    .getText()
+                                                                                                            + ","+aChoice.
+                                                                                                            getText() + "," +
+                                                                                                            bChoice.getText() +
+                                                                                                            "," + cChoice.
+                                                                                                            getText() + "," +
+                                                                                                            dChoice.getText() +
+                                                                                                            "quizTextUpload");
 
-                                                                                } catch (IOException ex) {
-                                                                                    ex.printStackTrace();
-                                                                                }
-                                                                                QuizText.dispose();
-                                                                                teacherMenuFrame.setVisible(true);
-                                                                            }
-                                                                        });
+                                                                                        } catch (IOException ex) {
+                                                                                            ex.printStackTrace();
+                                                                                        }
+                                                                                        QuizText.dispose();
+                                                                                        teacherMenuFrame.setVisible(true);
+                                                                                    }
+                                                                                });
                                                                         addAnother.addActionListener(
                                                                                 new ActionListener() {
-                                                                            @Override
-                                                                            public void actionPerformed(ActionEvent e) {
-                                                                                try {
-                                                                                    messageToServer(courseNameText.
-                                                                                            getText() + ",Quiz " + 
-                                                                                            quizNum.getText() + 
-                                                                                            randomText.getText() + 
-                                                                                            "quizName");
-                                                                                    messageToServer(courseNameText.
-                                                                                            getText() + "," + 
-                                                                                            questionText.getText() + 
-                                                                                            ","+aChoice.getText() + "," 
-                                                                                            + bChoice.getText() + "," +
-                                                                                            cChoice.getText() + "," + 
-                                                                                            dChoice.getText() + 
-                                                                                            "quizTextUpload");
-                                                                                    continueButton.setVisible(false);
-                                                                                    newEnter.addActionListener(
-                                                                                            new ActionListener() {
-                                                                                        @Override
-                                                                                        public void actionPerformed(
-                                                                                                ActionEvent e) {
-                                                                                            try {
-                                                                                                messageToServer(
-                                                                                                courseNameText.getText()
-                                                                                                + "," + questionText.
-                                                                                                              getText()
-                                                                                                + "," + aChoice.
-                                                                                                       getText() +
-                                                                                                 "," +
-                                                                                                 bChoice.getText() +
-                                                                                                 "," + cChoice.getText()
-                                                                                                   + "," + dChoice.
-                                                                                                 getText() +
-                                                                                                        "quizText" +
-                                                                                                        "Upload");
+                                                                                    @Override
+                                                                                    public void actionPerformed(ActionEvent e) {
+                                                                                        try {
+                                                                                            messageToServer(courseNameText.
+                                                                                                    getText() + ",Quiz " +
+                                                                                                    quizNum.getText() +
+                                                                                                    randomText.getText() +
+                                                                                                    "quizName");
+                                                                                            messageToServer(courseNameText.
+                                                                                                    getText() + "," +
+                                                                                                    questionText.getText() +
+                                                                                                    ","+aChoice.getText() + ","
+                                                                                                    + bChoice.getText() + "," +
+                                                                                                    cChoice.getText() + "," +
+                                                                                                    dChoice.getText() +
+                                                                                                    "quizTextUpload");
+                                                                                            continueButton.setVisible(false);
+                                                                                            newEnter.addActionListener(
+                                                                                                    new ActionListener() {
+                                                                                                        @Override
+                                                                                                        public void actionPerformed(
+                                                                                                                ActionEvent e) {
+                                                                                                            try {
+                                                                                                                messageToServer(
+                                                                                                                        courseNameText.getText()
+                                                                                                                                + "," + questionText.
+                                                                                                                                getText()
+                                                                                                                                + "," + aChoice.
+                                                                                                                                getText() +
+                                                                                                                                "," +
+                                                                                                                                bChoice.getText() +
+                                                                                                                                "," + cChoice.getText()
+                                                                                                                                + "," + dChoice.
+                                                                                                                                getText() +
+                                                                                                                                "quizText" +
+                                                                                                                                "Upload");
 
-                                                                                                QuizText.dispose();
-                                                                                                teacherMenuFrame.
-                                                                                                      setVisible(true);
-                                                                                            } catch (IOException ioe) {
-                                                                                                ioe.printStackTrace();
-                                                                                            }
+                                                                                                                QuizText.dispose();
+                                                                                                                teacherMenuFrame.
+                                                                                                                        setVisible(true);
+                                                                                                            } catch (IOException ioe) {
+                                                                                                                ioe.printStackTrace();
+                                                                                                            }
+                                                                                                        }
+                                                                                                    });
+
+
+                                                                                        } catch (IOException ex) {
+                                                                                            ex.printStackTrace();
                                                                                         }
-                                                                                    });
-
-
-                                                                                } catch (IOException ex) {
-                                                                                    ex.printStackTrace();
-                                                                                }
-                                                                                questionText.setText("");
-                                                                                aChoice.setText("a.");
-                                                                                bChoice.setText("b.");
-                                                                                cChoice.setText("c.");
-                                                                                dChoice.setText("d.");
-                                                                                try {
-                                                                                    messageToServer(
-                                                                                     courseNameText.getText() + "," +
-                                                                                             questionText.getText() + 
-                                                                                             "," +aChoice.getText() + 
-                                                                                             "," + bChoice.getText() +
-                                                                                             "," + cChoice.getText() +
-                                                                                             "," + dChoice.getText() + 
-                                                                                             "anotherQ");
-                                                                                } catch (IOException ex) {
-                                                                                    ex.printStackTrace();
-                                                                                }
-                                                                            }
-                                                                        });
+                                                                                        questionText.setText("");
+                                                                                        aChoice.setText("a.");
+                                                                                        bChoice.setText("b.");
+                                                                                        cChoice.setText("c.");
+                                                                                        dChoice.setText("d.");
+                                                                                        try {
+                                                                                            messageToServer(
+                                                                                                    courseNameText.getText() + "," +
+                                                                                                            questionText.getText() +
+                                                                                                            "," +aChoice.getText() +
+                                                                                                            "," + bChoice.getText() +
+                                                                                                            "," + cChoice.getText() +
+                                                                                                            "," + dChoice.getText() +
+                                                                                                            "anotherQ");
+                                                                                        } catch (IOException ex) {
+                                                                                            ex.printStackTrace();
+                                                                                        }
+                                                                                    }
+                                                                                });
                                                                         JPanel panelText = new JPanel();
                                                                         panelText.add(courseNameLabel);
                                                                         panelText.add(courseNameText);
@@ -585,25 +585,25 @@ public class ClientTest extends JComponent implements Runnable {
                                                                                                     "quizAdded")
                                                                                             ) {
                                                                                                 JOptionPane.
-                                                                                                    showMessageDialog(
-                                                                                       null, 
-                                                                                        "Quiz added", 
-                                                                                        "Adding a quiz",
-                                                                                         JOptionPane.
-                                                                                                 INFORMATION_MESSAGE);
+                                                                                                        showMessageDialog(
+                                                                                                                null,
+                                                                                                                "Quiz added",
+                                                                                                                "Adding a quiz",
+                                                                                                                JOptionPane.
+                                                                                                                        INFORMATION_MESSAGE);
                                                                                                 frame.setVisible(false);
                                                                                                 teacherMenuFrame.
                                                                                                         setVisible
                                                                                                                 (true);
                                                                                             } else {
                                                                                                 JOptionPane.
-                                                                                                showMessageDialog(
-                                                                                           null, 
-                                                                                            "Quiz could not" +
-                                                                                             " be added",
-                                                                                            "Adding a quiz",
-                                                                                             JOptionPane.
-                                                                                                 INFORMATION_MESSAGE);
+                                                                                                        showMessageDialog(
+                                                                                                                null,
+                                                                                                                "Quiz could not" +
+                                                                                                                        " be added",
+                                                                                                                "Adding a quiz",
+                                                                                                                JOptionPane.
+                                                                                                                        INFORMATION_MESSAGE);
                                                                                                 frame.setVisible(false);
                                                                                                 teacherMenuFrame.
                                                                                                         setVisible(
@@ -674,7 +674,7 @@ public class ClientTest extends JComponent implements Runnable {
                                             @Override
                                             public void actionPerformed(ActionEvent e) {
                                                 teacherMenuFrame.dispose();
-//                                                viewSubmissions();
+                                                TeacherGUI.printCourses();
                                                 teacherMenuFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                                             }
                                         });
@@ -940,6 +940,7 @@ public class ClientTest extends JComponent implements Runnable {
                                         JOptionPane.showMessageDialog(null,
                                                 "Successful Login", "Student",
                                                 JOptionPane.INFORMATION_MESSAGE);
+                                        frame7.setVisible(false);
                                         StudentGUI.studentMenu();
                                     } else {
                                         JOptionPane.showMessageDialog(null,
