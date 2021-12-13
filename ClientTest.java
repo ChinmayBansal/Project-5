@@ -291,8 +291,10 @@ public class ClientTest extends JComponent implements Runnable {
                                                 teacherMenuFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                                                 JFrame frame = new JFrame("Create Course");
                                                 Container content = frame.getContentPane();
-                                                JLabel question = new JLabel("What do you want to name the course?");
-                                                JLabel question2 = new JLabel("Two letters and 3 numbers Ex. CS180");
+                                                JLabel question = new JLabel("What do you want to name" +
+                                                        " the course?");
+                                                JLabel question2 = new JLabel("Two letters and 3 numbers" +
+                                                        " Ex. CS180");
                                                 JTextField courseName = new JTextField(10);
                                                 JButton enter = new JButton("Enter");
 
@@ -376,30 +378,62 @@ public class ClientTest extends JComponent implements Runnable {
                                                                         frame.dispose();
                                                                         frame.setDefaultCloseOperation(
                                                                                 JFrame.DISPOSE_ON_CLOSE);
-                                                                        JFrame QuizText = new JFrame("Enter Quiz Through Text");
+                                                                        JFrame QuizText = new JFrame("Enter Quiz" +
+                                                                                " Through Text");
                                                                         Container content = QuizText.getContentPane();
-                                                                        JLabel courseNameLabel = new JLabel("Course Name");
-                                                                        JTextField courseNameText = new JTextField(6);
-                                                                        JLabel message = new JLabel("Enter Quiz Number");
+                                                                        JLabel courseNameLabel = new JLabel(
+                                                                                "Course Name");
+                                                                        JTextField courseNameText = new JTextField(
+                                                                                6);
+                                                                        JLabel message = new JLabel("Enter " +
+                                                                                "Quiz Number");
                                                                         JTextField quizNum = new JTextField(1);
-                                                                        JLabel random = new JLabel("Random? Enter 't' or 'f'");
-                                                                        JTextField randomText = new JTextField(1);
-                                                                        JLabel questionLabel = new JLabel("Question:");
-                                                                        JTextField questionText = new JTextField(20);
-                                                                        JTextField aChoice = new JTextField("a. ", 15);
-                                                                        JTextField bChoice = new JTextField("b. ", 15);
-                                                                        JTextField cChoice = new JTextField("c. ", 15);
-                                                                        JTextField dChoice = new JTextField("d. ", 15);
+                                                                        JLabel random = new JLabel("Random? Enter" +
+                                                                                " 't' or 'f'");
+                                                                        JTextField randomText = new JTextField(
+                                                                                1);
+                                                                        JLabel questionLabel = new JLabel(
+                                                                                "Question:");
+                                                                        JTextField questionText = new JTextField(
+                                                                                20);
+                                                                        JTextField aChoice = new JTextField("a. ",
+                                                                                15);
+                                                                        JTextField bChoice = new JTextField("b. "
+                                                                                , 15);
+                                                                        JTextField cChoice = new JTextField("c. ",
+                                                                                15);
+                                                                        JTextField dChoice = new JTextField("d. ",
+                                                                                15);
 
-                                                                        JButton continueButton = new JButton("Enter");
-                                                                        JButton addAnother = new JButton("Add Another Question");
-                                                                        JButton newEnter = new JButton("Multiple Question Enter");
-                                                                        continueButton.addActionListener(new ActionListener() {
+                                                                        JButton continueButton = new JButton(
+                                                                                "Enter");
+                                                                        JButton addAnother = new JButton("Add" +
+                                                                                " Another Question");
+                                                                        JButton newEnter = new JButton(
+                                                                                "Multiple Question Enter");
+                                                                        continueButton.addActionListener(
+                                                                                new ActionListener() {
                                                                             @Override
-                                                                            public void actionPerformed(ActionEvent e) {
+                                                                            public void actionPerformed(ActionEvent e)
+                                                                            {
                                                                                 try {
-                                                                                    messageToServer(courseNameText.getText() + ",Quiz " + quizNum.getText() + randomText.getText() + "quizName");
-                                                                                    messageToServer(courseNameText.getText() + "," + questionText.getText() + ","+aChoice.getText() + "," + bChoice.getText() + "," + cChoice.getText() + "," + dChoice.getText() + "quizTextUpload");
+                                                                                    messageToServer(courseNameText.
+                                                                                            getText() + ",Quiz " + 
+                                                                                            quizNum.getText() + 
+                                                                                            randomText.getText() +
+                                                                                            "quizName");
+                                                                                    messageToServer(
+                                                                                            courseNameText.getText()
+                                                                                                    + "," + 
+                                                                                                    questionText
+                                                                                                            .getText()
+                                                                                                    + ","+aChoice.
+                                                                                                    getText() + "," +
+                                                                                                    bChoice.getText() +
+                                                                                                    "," + cChoice.
+                                                                                                    getText() + "," +
+                                                                                                    dChoice.getText() +
+                                                                                                    "quizTextUpload");
 
                                                                                 } catch (IOException ex) {
                                                                                     ex.printStackTrace();
@@ -408,21 +442,48 @@ public class ClientTest extends JComponent implements Runnable {
                                                                                 teacherMenuFrame.setVisible(true);
                                                                             }
                                                                         });
-                                                                        addAnother.addActionListener(new ActionListener() {
+                                                                        addAnother.addActionListener(
+                                                                                new ActionListener() {
                                                                             @Override
                                                                             public void actionPerformed(ActionEvent e) {
                                                                                 try {
-                                                                                    messageToServer(courseNameText.getText() + ",Quiz " + quizNum.getText() + randomText.getText() + "quizName");
-                                                                                    messageToServer(courseNameText.getText() + "," + questionText.getText() + ","+aChoice.getText() + "," + bChoice.getText() + "," + cChoice.getText() + "," + dChoice.getText() + "quizTextUpload");
+                                                                                    messageToServer(courseNameText.
+                                                                                            getText() + ",Quiz " + 
+                                                                                            quizNum.getText() + 
+                                                                                            randomText.getText() + 
+                                                                                            "quizName");
+                                                                                    messageToServer(courseNameText.
+                                                                                            getText() + "," + 
+                                                                                            questionText.getText() + 
+                                                                                            ","+aChoice.getText() + "," 
+                                                                                            + bChoice.getText() + "," +
+                                                                                            cChoice.getText() + "," + 
+                                                                                            dChoice.getText() + 
+                                                                                            "quizTextUpload");
                                                                                     continueButton.setVisible(false);
-                                                                                    newEnter.addActionListener(new ActionListener() {
+                                                                                    newEnter.addActionListener(
+                                                                                            new ActionListener() {
                                                                                         @Override
-                                                                                        public void actionPerformed(ActionEvent e) {
+                                                                                        public void actionPerformed(
+                                                                                                ActionEvent e) {
                                                                                             try {
-                                                                                                messageToServer(courseNameText.getText() + "," + questionText.getText() + "," + aChoice.getText() + "," + bChoice.getText() + "," + cChoice.getText() + "," + dChoice.getText() + "quizTextUpload");
+                                                                                                messageToServer(
+                                                                                                courseNameText.getText()
+                                                                                                + "," + questionText.
+                                                                                                              getText()
+                                                                                                + "," + aChoice.
+                                                                                                       getText() +
+                                                                                                 "," +
+                                                                                                 bChoice.getText() +
+                                                                                                 "," + cChoice.getText()
+                                                                                                   + "," + dChoice.
+                                                                                                 getText() +
+                                                                                                        "quizText" +
+                                                                                                        "Upload");
 
                                                                                                 QuizText.dispose();
-                                                                                                teacherMenuFrame.setVisible(true);
+                                                                                                teacherMenuFrame.
+                                                                                                      setVisible(true);
                                                                                             } catch (IOException ioe) {
                                                                                                 ioe.printStackTrace();
                                                                                             }
@@ -439,7 +500,14 @@ public class ClientTest extends JComponent implements Runnable {
                                                                                 cChoice.setText("c.");
                                                                                 dChoice.setText("d.");
                                                                                 try {
-                                                                                    messageToServer(courseNameText.getText() + "," + questionText.getText() + "," +aChoice.getText() + "," + bChoice.getText() + "," + cChoice.getText() + "," + dChoice.getText() + "anotherQ");
+                                                                                    messageToServer(
+                                                                                     courseNameText.getText() + "," +
+                                                                                             questionText.getText() + 
+                                                                                             "," +aChoice.getText() + 
+                                                                                             "," + bChoice.getText() +
+                                                                                             "," + cChoice.getText() +
+                                                                                             "," + dChoice.getText() + 
+                                                                                             "anotherQ");
                                                                                 } catch (IOException ex) {
                                                                                     ex.printStackTrace();
                                                                                 }
@@ -464,11 +532,13 @@ public class ClientTest extends JComponent implements Runnable {
                                                                         panelTextButton.add(continueButton);
                                                                         panelTextButton.add(newEnter);
 
-                                                                        content.add(panelTextButton, BorderLayout.SOUTH);
+                                                                        content.add(panelTextButton, BorderLayout.
+                                                                                SOUTH);
                                                                         content.add(panelText, BorderLayout.CENTER);
                                                                         QuizText.setSize(600, 600);
                                                                         QuizText.setLocationRelativeTo(null);
-                                                                        QuizText.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                                                                        QuizText.setDefaultCloseOperation(
+                                                                                JFrame.DISPOSE_ON_CLOSE);
                                                                         QuizText.setVisible(true);
 
 
@@ -511,15 +581,33 @@ public class ClientTest extends JComponent implements Runnable {
                                                                                             );
                                                                                             String added =
                                                                                                     messageFromServer();
-                                                                                            if (added.equals("quizAdded")
+                                                                                            if (added.equals("" +
+                                                                                                    "quizAdded")
                                                                                             ) {
-                                                                                                JOptionPane.showMessageDialog(null, "Quiz added", "Adding a quiz", JOptionPane.INFORMATION_MESSAGE);
+                                                                                                JOptionPane.
+                                                                                                    showMessageDialog(
+                                                                                       null, 
+                                                                                        "Quiz added", 
+                                                                                        "Adding a quiz",
+                                                                                         JOptionPane.
+                                                                                                 INFORMATION_MESSAGE);
                                                                                                 frame.setVisible(false);
-                                                                                                teacherMenuFrame.setVisible(true);
+                                                                                                teacherMenuFrame.
+                                                                                                        setVisible
+                                                                                                                (true);
                                                                                             } else {
-                                                                                                JOptionPane.showMessageDialog(null, "Quiz could not be added", "Adding a quiz", JOptionPane.INFORMATION_MESSAGE);
+                                                                                                JOptionPane.
+                                                                                                showMessageDialog(
+                                                                                           null, 
+                                                                                            "Quiz could not" +
+                                                                                             " be added",
+                                                                                            "Adding a quiz",
+                                                                                             JOptionPane.
+                                                                                                 INFORMATION_MESSAGE);
                                                                                                 frame.setVisible(false);
-                                                                                                teacherMenuFrame.setVisible(true);
+                                                                                                teacherMenuFrame.
+                                                                                                        setVisible(
+                                                                                                                true);
                                                                                             }
                                                                                         } catch (IOException ex) {
                                                                                             ex.printStackTrace();
