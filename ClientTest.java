@@ -1,10 +1,7 @@
 import javax.swing.*;
-import javax.swing.plaf.basic.BasicSliderUI;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -15,7 +12,7 @@ import java.net.Socket;
 public class ClientTest extends JComponent implements Runnable {
     private static Socket s;
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         try {
             // getting localhost ip
             InetAddress ip = InetAddress.getByName("localhost");
@@ -67,7 +64,6 @@ public class ClientTest extends JComponent implements Runnable {
 
     @Override
     public void run() {
-        TeacherGui teacherGui = new TeacherGui();
 
         // First Gui
         JFrame frame1 = new JFrame("Quiz App");
@@ -307,16 +303,20 @@ public class ClientTest extends JComponent implements Runnable {
                                                         try {
                                                             messageToServer(courseName.getText() + "createCourse");
                                                             String courseOrNot = ClientTest.messageFromServer();
-                                                            if(courseOrNot.equals("courseAdded")) {
-                                                                JOptionPane.showMessageDialog(null, "Course has been added",
-                                                                        "Adding a Course", JOptionPane.INFORMATION_MESSAGE);
+                                                            System.out.println(courseOrNot);
+                                                            if (courseOrNot.equals("courseAdded")) {
+                                                                JOptionPane.showMessageDialog(null,
+                                                                        "Course has been added",
+                                                                        "Adding a Course",
+                                                                        JOptionPane.INFORMATION_MESSAGE);
                                                                 frame.setVisible(false);
                                                                 teacherMenuFrame.setVisible(true);
 
-                                                            }
-                                                            else {
-                                                                JOptionPane.showMessageDialog(null, "Course cannot be added",
-                                                                        "Adding a Course", JOptionPane.ERROR_MESSAGE);
+                                                            } else {
+                                                                JOptionPane.showMessageDialog(null,
+                                                                        "Course cannot be added",
+                                                                        "Adding a Course",
+                                                                        JOptionPane.ERROR_MESSAGE);
                                                                 courseName.setText("");
                                                             }
                                                         } catch (IOException ex) {
@@ -343,8 +343,241 @@ public class ClientTest extends JComponent implements Runnable {
                                             @Override
                                             public void actionPerformed(ActionEvent e) {
                                                 teacherMenuFrame.dispose();
-//                                                editCourse();
                                                 teacherMenuFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                                                JFrame frame = new JFrame("Edit Course");
+
+                                                Container content = frame.getContentPane();
+                                                JLabel question = new JLabel(
+                                                        "Which course would you like to edit?");
+                                                JTextField courseEdit = new JTextField(10);
+                                                JButton enter = new JButton("Enter");
+                                                enter.addActionListener(new ActionListener() {
+                                                    @Override
+                                                    public void actionPerformed(ActionEvent e) {
+                                                        try {
+                                                            messageToServer(courseEdit.getText() + "checkCourse");
+                                                            String courseFound = messageFromServer();
+                                                            System.out.println(courseFound);
+                                                            if (courseFound.equals("courseFound")) {
+
+
+                                                                frame.dispose();
+                                                                frame.setDefaultCloseOperation(
+                                                                        JFrame.DISPOSE_ON_CLOSE);
+                                                                JFrame frame = new JFrame("Add Quiz");
+                                                                Container content = frame.getContentPane();
+                                                                JLabel message = new JLabel(
+                                                                        "Add through text or file?");
+                                                                JButton text = new JButton("Text");
+                                                                //text option
+                                                                text.addActionListener(new ActionListener() {
+                                                                    @Override
+                                                                    public void actionPerformed(ActionEvent e) {
+                                                                        frame.dispose();
+                                                                        frame.setDefaultCloseOperation(
+                                                                                JFrame.DISPOSE_ON_CLOSE);
+                                                                        JFrame QuizText = new JFrame("Enter Quiz Through Text");
+                                                                        Container content = QuizText.getContentPane();
+                                                                        JLabel courseNameLabel = new JLabel("Course Name");
+                                                                        JTextField courseNameText = new JTextField(6);
+                                                                        JLabel message = new JLabel("Enter Quiz Number");
+                                                                        JTextField quizNum = new JTextField(1);
+                                                                        JLabel random = new JLabel("Random? Enter 't' or 'f'");
+                                                                        JTextField randomText = new JTextField(1);
+                                                                        JLabel questionLabel = new JLabel("Question:");
+                                                                        JTextField questionText = new JTextField(20);
+                                                                        JTextField aChoice = new JTextField("a. ", 15);
+                                                                        JTextField bChoice = new JTextField("b. ", 15);
+                                                                        JTextField cChoice = new JTextField("c. ", 15);
+                                                                        JTextField dChoice = new JTextField("d. ", 15);
+
+                                                                        JButton continueButton = new JButton("Enter");
+                                                                        JButton addAnother = new JButton("Add Another Question");
+                                                                        JButton newEnter = new JButton("Multiple Question Enter");
+                                                                        continueButton.addActionListener(new ActionListener() {
+                                                                            @Override
+                                                                            public void actionPerformed(ActionEvent e) {
+                                                                                try {
+                                                                                    messageToServer(courseNameText.getText() + ",Quiz " + quizNum.getText() + randomText.getText() + "quizName");
+                                                                                    messageToServer(courseNameText.getText() + "," + questionText.getText() + ","+aChoice.getText() + "," + bChoice.getText() + "," + cChoice.getText() + "," + dChoice.getText() + "quizTextUpload");
+
+                                                                                } catch (IOException ex) {
+                                                                                    ex.printStackTrace();
+                                                                                }
+                                                                                QuizText.dispose();
+                                                                                teacherMenuFrame.setVisible(true);
+                                                                            }
+                                                                        });
+                                                                        addAnother.addActionListener(new ActionListener() {
+                                                                            @Override
+                                                                            public void actionPerformed(ActionEvent e) {
+                                                                                try {
+                                                                                    messageToServer(courseNameText.getText() + ",Quiz " + quizNum.getText() + randomText.getText() + "quizName");
+                                                                                    messageToServer(courseNameText.getText() + "," + questionText.getText() + ","+aChoice.getText() + "," + bChoice.getText() + "," + cChoice.getText() + "," + dChoice.getText() + "quizTextUpload");
+                                                                                    continueButton.setVisible(false);
+                                                                                    newEnter.addActionListener(new ActionListener() {
+                                                                                        @Override
+                                                                                        public void actionPerformed(ActionEvent e) {
+                                                                                            try {
+                                                                                                messageToServer(courseNameText.getText() + "," + questionText.getText() + "," + aChoice.getText() + "," + bChoice.getText() + "," + cChoice.getText() + "," + dChoice.getText() + "quizTextUpload");
+
+                                                                                                QuizText.dispose();
+                                                                                                teacherMenuFrame.setVisible(true);
+                                                                                            } catch (IOException ioe) {
+                                                                                                ioe.printStackTrace();
+                                                                                            }
+                                                                                        }
+                                                                                    });
+
+
+                                                                                } catch (IOException ex) {
+                                                                                    ex.printStackTrace();
+                                                                                }
+                                                                                questionText.setText("");
+                                                                                aChoice.setText("a.");
+                                                                                bChoice.setText("b.");
+                                                                                cChoice.setText("c.");
+                                                                                dChoice.setText("d.");
+                                                                                try {
+                                                                                    messageToServer(courseNameText.getText() + "," + questionText.getText() + "," +aChoice.getText() + "," + bChoice.getText() + "," + cChoice.getText() + "," + dChoice.getText() + "anotherQ");
+                                                                                } catch (IOException ex) {
+                                                                                    ex.printStackTrace();
+                                                                                }
+                                                                            }
+                                                                        });
+                                                                        JPanel panelText = new JPanel();
+                                                                        panelText.add(courseNameLabel);
+                                                                        panelText.add(courseNameText);
+                                                                        panelText.add(message);
+                                                                        panelText.add(quizNum);
+                                                                        panelText.add(random);
+                                                                        panelText.add(randomText);
+                                                                        panelText.add(questionLabel);
+                                                                        panelText.add(questionText);
+                                                                        panelText.add(aChoice);
+                                                                        panelText.add(bChoice);
+                                                                        panelText.add(cChoice);
+                                                                        panelText.add(dChoice);
+
+                                                                        JPanel panelTextButton = new JPanel();
+                                                                        panelTextButton.add(addAnother);
+                                                                        panelTextButton.add(continueButton);
+                                                                        panelTextButton.add(newEnter);
+
+                                                                        content.add(panelTextButton, BorderLayout.SOUTH);
+                                                                        content.add(panelText, BorderLayout.CENTER);
+                                                                        QuizText.setSize(600, 600);
+                                                                        QuizText.setLocationRelativeTo(null);
+                                                                        QuizText.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                                                                        QuizText.setVisible(true);
+
+
+
+                                                                    }
+                                                                });
+
+                                                                JButton file = new JButton("File");
+                                                                //file
+                                                                file.addActionListener(new ActionListener() {
+                                                                    @Override
+                                                                    public void actionPerformed(ActionEvent e) {
+                                                                        frame.dispose();
+                                                                        frame.setDefaultCloseOperation(
+                                                                                JFrame.DISPOSE_ON_CLOSE);
+
+                                                                        JFrame frame = new JFrame("File Upload");
+                                                                        Container content = frame.getContentPane();
+                                                                        JLabel message = new JLabel(
+                                                                                "Enter name of course");
+                                                                        JTextField courseName = new JTextField(
+                                                                                10);
+                                                                        JLabel message2 = new JLabel(
+                                                                                "Enter file name");
+                                                                        JTextField filename = new JTextField(
+                                                                                10);
+                                                                        JButton continueButton = new JButton(
+                                                                                "Continue");
+                                                                        continueButton.addActionListener(
+                                                                                new ActionListener() {
+                                                                                    @Override
+                                                                                    public void actionPerformed(
+                                                                                            ActionEvent e) {
+                                                                                        frame.dispose();
+                                                                                        try {
+                                                                                            messageToServer(courseName.
+                                                                                                    getText() + "," +
+                                                                                                    filename.getText()
+                                                                                                    + ",courseQuizFile"
+                                                                                            );
+                                                                                            String added =
+                                                                                                    messageFromServer();
+                                                                                            if (added.equals("quizAdded")
+                                                                                            ) {
+                                                                                                JOptionPane.showMessageDialog(null, "Quiz added", "Adding a quiz", JOptionPane.INFORMATION_MESSAGE);
+                                                                                                frame.setVisible(false);
+                                                                                                teacherMenuFrame.setVisible(true);
+                                                                                            } else {
+                                                                                                JOptionPane.showMessageDialog(null, "Quiz could not be added", "Adding a quiz", JOptionPane.INFORMATION_MESSAGE);
+                                                                                                frame.setVisible(false);
+                                                                                                teacherMenuFrame.setVisible(true);
+                                                                                            }
+                                                                                        } catch (IOException ex) {
+                                                                                            ex.printStackTrace();
+                                                                                        }
+                                                                                    }
+                                                                                });
+                                                                        JPanel panel = new JPanel();
+                                                                        panel.add(message);
+                                                                        panel.add(courseName);
+                                                                        panel.add(message2);
+                                                                        panel.add(filename);
+                                                                        panel.add(continueButton);
+                                                                        content.add(panel, BorderLayout.CENTER);
+                                                                        frame.setSize(600, 600);
+                                                                        frame.setLocationRelativeTo(null);
+                                                                        frame.setDefaultCloseOperation(
+                                                                                JFrame.DISPOSE_ON_CLOSE);
+                                                                        frame.setVisible(true);
+                                                                    }
+                                                                });
+                                                                JPanel panel = new JPanel();
+                                                                panel.add(message);
+                                                                panel.add(text);
+                                                                panel.add(file);
+                                                                content.add(panel, BorderLayout.CENTER);
+                                                                frame.setSize(600, 600);
+                                                                frame.setLocationRelativeTo(null);
+                                                                frame.setDefaultCloseOperation(
+                                                                        JFrame.DISPOSE_ON_CLOSE);
+                                                                frame.setVisible(true);
+
+
+                                                            } else {
+                                                                frame.dispose();
+                                                                JOptionPane.showMessageDialog(null,
+                                                                        "Course Not found",
+                                                                        "Course Error", JOptionPane.ERROR_MESSAGE);
+                                                                teacherMenuFrame.setVisible(true);
+                                                            }
+                                                        } catch (IOException ex) {
+                                                            ex.printStackTrace();
+                                                        }
+                                                        frame.dispose();
+                                                        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+                                                    }
+
+                                                });
+
+                                                JPanel panel = new JPanel();
+                                                panel.add(question);
+                                                panel.add(courseEdit);
+                                                panel.add(enter);
+                                                content.add(panel, BorderLayout.CENTER);
+                                                frame.setSize(600, 600);
+                                                frame.setLocationRelativeTo(null);
+                                                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                                                frame.setVisible(true);
                                             }
                                         });
 
