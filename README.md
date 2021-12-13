@@ -31,7 +31,7 @@ The server test clas creates the conneciton to the client and creates threads. I
 The student GUI class includes all the GUIs for the student user such as taking a quiz. In this class, the message is sent to the server and is recevied. This class is implemented in the ClientTest class as it is used in the control flow and the methods of the class are called to display GUIs. It also woks with the server class as it writes messages to the server class. The testing for this class was done by calling the GUIs and ensuring they worked in the way we wanted them to.
 
 # TeacherGUI Class
-The teacher gui was never directly implemented in the client class but instead the GUIs were taken and edited in the client class for the contorl flow. The testing for this class was done by calling the GUIs and making sure the GUIs displayed the right frames and messages.
+The teacher gui was directly implemented once in the client class but instead the GUIs were taken and edited in the client class for the contorl flow. The testing for this class was done by calling the GUIs and making sure the GUIs displayed the right frames and messages.
 
 # Notes:
 
