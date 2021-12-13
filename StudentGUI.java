@@ -31,6 +31,7 @@ public class StudentGUI extends JComponent implements Runnable {
         JPanel panel = new JPanel();
         JButton option1 = new JButton("Take Quiz");
         JButton option2 = new JButton("Edit Information");
+        JButton option3 = new JButton("Logout");
 
 
         option1.addActionListener(new ActionListener() {
@@ -58,13 +59,147 @@ public class StudentGUI extends JComponent implements Runnable {
                 JPanel panel = new JPanel();
                 JButton option2 = new JButton("Edit Username");
                 JButton option3 = new JButton("Edit Password");
+                JButton option4 = new JButton("Delete Account");
                 panel.add(option2);
                 panel.add(option3);
+                panel.add(option4);
                 content.add(panel, BorderLayout.CENTER);
                 frame6.setSize(600, 600);
                 frame6.setLocationRelativeTo(null);
                 frame6.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 frame6.setVisible(true);
+                option2.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        frame1.dispose();
+                        JFrame frame7 = new JFrame("Student Menu");
+                        Container content = frame7.getContentPane();
+                        JPanel panel = new JPanel();
+                        JLabel option2 = new JLabel("Enter Username");
+                        JTextField option3 = new JTextField(12);
+                        JButton option4 = new JButton("Confirm");
+                        panel.add(option2);
+                        panel.add(option3);
+                        panel.add(option4);
+                        content.add(panel, BorderLayout.CENTER);
+                        frame7.setSize(600, 600);
+                        frame7.setLocationRelativeTo(null);
+                        frame7.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                        frame7.setVisible(true);
+                        option4.addActionListener(new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
+                                frame7.dispose();
+                                try {
+                                    ClientTest.messageToServer(option4.getText() + "changeUsername");
+                                    String newName = ClientTest.messageFromServer();
+                                    if (newName.equals("usernameChanged")) {
+                                        JOptionPane.showMessageDialog(null,
+                                                "Username Changed", "Student",
+                                                JOptionPane.INFORMATION_MESSAGE);
+                                        frame1.setVisible(true);
+                                        frame7.setVisible(false);
+                                    } else {
+                                        JOptionPane.showMessageDialog(null,
+                                                "Username Could Not Be Changed", "Student",
+                                                JOptionPane.INFORMATION_MESSAGE);
+                                    }
+                                } catch (IOException ioException) {
+                                    ioException.printStackTrace();
+                                }
+                            }
+                        });
+                    }
+                });
+                option3.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        frame1.dispose();
+                        JFrame frame8 = new JFrame("Student Menu");
+                        Container content = frame8.getContentPane();
+                        JPanel panel = new JPanel();
+                        JLabel option2 = new JLabel("Enter Password");
+                        JTextField option3 = new JTextField(12);
+                        JButton option4 = new JButton("Confirm");
+                        panel.add(option2);
+                        panel.add(option3);
+                        panel.add(option4);
+                        content.add(panel, BorderLayout.CENTER);
+                        frame8.setSize(600, 600);
+                        frame8.setLocationRelativeTo(null);
+                        frame8.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                        frame8.setVisible(true);
+                        option4.addActionListener(new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
+                                frame8.dispose();
+                                try {
+                                    ClientTest.messageToServer(option4.getText() + "changePasswordS");
+                                    String newPass = ClientTest.messageFromServer();
+                                    if (newPass.equals("passChanged")) {
+                                        JOptionPane.showMessageDialog(null,
+                                                "Password Changed", "Student",
+                                                JOptionPane.INFORMATION_MESSAGE);
+                                        frame1.setVisible(true);
+                                        frame8.setVisible(false);
+                                    } else {
+                                        JOptionPane.showMessageDialog(null,
+                                                "Password Could Not Be Changed", "Student",
+                                                JOptionPane.INFORMATION_MESSAGE);
+                                    }
+                                } catch (IOException ioException) {
+                                    ioException.printStackTrace();
+                                }
+                            }
+                        });
+                    }
+                });
+                option3.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        frame1.dispose();
+                        JFrame frame9 = new JFrame("Student Menu");
+                        Container content = frame9.getContentPane();
+                        JPanel panel = new JPanel();
+                        JLabel option2 = new JLabel("Enter Password");
+                        JTextField option3 = new JTextField(12);
+                        JButton option4 = new JButton("Confirm");
+                        panel.add(option2);
+                        panel.add(option3);
+                        panel.add(option4);
+                        content.add(panel, BorderLayout.CENTER);
+                        frame9.setSize(600, 600);
+                        frame9.setLocationRelativeTo(null);
+                        frame9.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                        frame9.setVisible(true);
+                        option4.addActionListener(new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
+                                frame9.dispose();
+                                try {
+                                    ClientTest.messageToServer("delete");
+                                    String deleting = ClientTest.messageFromServer();
+                                    if (deleting.equals("AccountDelete")) {
+                                        JOptionPane.showMessageDialog(null,
+                                                "Account Deleted", "Delete Account",
+                                                JOptionPane.INFORMATION_MESSAGE);
+                                        frame9.setVisible(false);
+                                        JOptionPane.showMessageDialog(null,
+                                                "Thank You For Using The Application", "Thank You",
+                                                JOptionPane.INFORMATION_MESSAGE);
+                                        ClientTest.messageToServer("Exit");
+                                    } else {
+                                        JOptionPane.showMessageDialog(null,
+                                                "Account Could Not Be Deleted", "Student",
+                                                JOptionPane.INFORMATION_MESSAGE);
+                                    }
+                                } catch (IOException ioException) {
+                                    ioException.printStackTrace();
+                                }
+                            }
+                        });
+                    }
+                });
                 frame6.addWindowListener(new WindowAdapter() {
                     @Override
                     public void windowClosing(WindowEvent e) {
@@ -79,6 +214,22 @@ public class StudentGUI extends JComponent implements Runnable {
                 });
                 frame1.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
+            }
+        });
+
+        option3.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame1.dispose();
+                JOptionPane.showMessageDialog(null,
+                        "Thank you for using the service", "Logout",
+                        JOptionPane.INFORMATION_MESSAGE);
+                frame1.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                try {
+                    ClientTest.messageToServer("Exit");
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
             }
         });
 
@@ -507,8 +658,8 @@ public class StudentGUI extends JComponent implements Runnable {
                                 }
                                 try {
                                     bw.write(",");
-                                    bw.write((int) (date.getMonth() + 1) + "/" + (int) date.getDate() + "/" + (int) // All of this
-                                            (date.getYear() + 1900) + "," + (int) date.getHours() + ":"                 // test
+                                    bw.write((int) (date.getMonth() + 1) + "/" + (int) date.getDate() + "/" + (int)
+                                            (date.getYear() + 1900) + "," + (int) date.getHours() + ":"
                                             + (int) date.getMinutes() + ":" + (int) date.getSeconds() + "\n");
                                     bw.close();
                                 } catch (IOException ioException) {
