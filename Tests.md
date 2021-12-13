@@ -134,4 +134,22 @@ Expected: Course not found message
 Test status: passed
 
 Test 15
-1. 
+1. User clicks take quiz button
+2. User enters in full course name including teacher
+3. User enters the quiz number
+
+Expected: Quiz shows up
+
+Test status: passed
+
+Test 16
+1. User clicks take quiz button
+2. User enters in full course name including teacher
+3. User enters the quiz number
+4. User clicks without a file button
+5. User prompted to enter the answers
+6. User clicks enter
+
+Expected: File is submitted
+
+Test status: passed
