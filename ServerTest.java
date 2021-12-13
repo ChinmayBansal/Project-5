@@ -263,6 +263,19 @@ class ClientHandler extends Thread {
                             System.out.println(quiz);
 //                            quiz.add(fromClient);
                         }
+                        else if (line.endsWith("studentCourseChoice")) {
+                            String courseSelection = line.substring(0, line.length() - 19);
+                            System.out.println(courseSelection);
+                            student.setCourseSelection(courseSelection);
+                        } else if (line.endsWith("studentQuizChoice")) {
+                            user.setUsername("Adam");
+                            String quizSelection = line.substring(0, line.length() - 17);
+                            System.out.println(quizSelection);
+                            int quizSelectionNumber = Integer.parseInt(quizSelection);
+                            boolean random = Student.determineRandom(student.getCourseSelection(),
+                                    quizSelectionNumber);
+                            dos.writeUTF(String.valueOf(random));
+                            dos.writeUTF(user.getUsername());
                         else if (line.equals("Exit")) {
                             System.out.println("Client " + this.s + " sends exit...");
                             System.out.println("Closing this connection.");
