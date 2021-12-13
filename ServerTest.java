@@ -276,6 +276,12 @@ class ClientHandler extends Thread {
                                     quizSelectionNumber);
                             dos.writeUTF(String.valueOf(random));
                             dos.writeUTF(user.getUsername());
+                        } else if (line.endsWith("changePasswordS")) {
+                            loginInfo = user.createFile();
+                            System.out.println("User is trying to change a student password");
+                            line = line.substring(0,line.length()-15);
+                            user.changeStudentPass(loginInfo, user.getPassword(), line);
+                            dos.writeUTF("passChanged");
                         }
                         else if (line.equals("Exit")) {
                                 System.out.println("Client " + this.s + " sends exit...");
