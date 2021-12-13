@@ -56,10 +56,8 @@ public class StudentGUI extends JComponent implements Runnable {
                 JFrame frame6 = new JFrame("Student Menu");
                 Container content = frame6.getContentPane();
                 JPanel panel = new JPanel();
-                JButton option1 = new JButton("Logout");
                 JButton option2 = new JButton("Edit Username");
                 JButton option3 = new JButton("Edit Password");
-                panel.add(option1);
                 panel.add(option2);
                 panel.add(option3);
                 content.add(panel, BorderLayout.CENTER);
@@ -203,6 +201,65 @@ public class StudentGUI extends JComponent implements Runnable {
                                 } catch (IOException ex) {
                                     ex.printStackTrace();
                                 }
+                            }
+                        });
+                        JButton noFile2 = new JButton("Answer Without File");
+                        JButton file2 = new JButton("Answer With File");
+                        panel.add(noFile2);
+                        panel.add(file2);
+                        content.add(panel);
+                        frame3.setSize(600, 600);
+                        frame3.setLocationRelativeTo(null);
+                        frame3.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                        frame3.setVisible(true);
+                        frame3.addWindowListener(new WindowAdapter() {
+                            @Override
+                            public void windowClosing(WindowEvent e) {
+                                super.windowClosing(e);
+                                try {
+                                    System.out.println("Client force closed");
+                                    ClientTest.messageToServer("closing");
+                                } catch (IOException ex) {
+                                    ex.printStackTrace();
+                                }
+                            }
+                        });
+                        noFile2.addActionListener(new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
+                                frame3.dispose();
+                                answerMethod(fileName, quizNumber, false, null, savedUsername);
+                                frame3.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                            }
+                        });
+                        file2.addActionListener(new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
+                                frame3.dispose();
+                                JFrame frame5 = new JFrame("File?");
+                                Container content = frame5.getContentPane();
+                                JPanel panel = new JPanel();
+                                JLabel enterFile = new JLabel("Enter File Name Without .txt");
+                                JButton confirmButton = new JButton("Confirm");
+                                JTextField studentFileName = new JTextField("");
+                                panel.add(enterFile);
+                                panel.add(confirmButton);
+                                panel.add(studentFileName);
+                                content.add(panel);
+                                frame5.setSize(600, 600);
+                                frame5.setLocationRelativeTo(null);
+                                frame5.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                                frame5.setVisible(true);
+                                confirmButton.addActionListener(new ActionListener() {
+                                    @Override
+                                    public void actionPerformed(ActionEvent e) {
+                                        frame5.dispose();
+                                        answerMethod(fileName, quizNumber, true, studentFileName.getText()
+                                                , savedUsername);
+                                        frame5.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                                    }
+                                });
+                                frame3.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                             }
                         });
                         return;
