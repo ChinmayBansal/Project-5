@@ -183,17 +183,85 @@ class ClientHandler extends Thread {
                         }
                         else if(line.endsWith("createCourse")) {
                             courseList = teacher.courseList();
+                            System.out.println(courseList);
                             line = line.substring(0,line.length() -12);
                             if(teacher.addCourse(courseList, line, user.getUsername()).equals("courseAdded")) {
-                                dos.writeUTF("courseAdded");
-                                courseList = teacher.courseList();
                                 teacher.createCourse(line, user.getUsername());
                                 System.out.println("course added");
+                                dos.writeUTF("courseAdded");
                             }
                             else {
-                                System.out.println("Course exits");
+                                System.out.println("Course exists");
                                 dos.writeUTF("courseExists");
+                                break;
                             }
+
+                        }
+                        else if(line.endsWith("checkCourse")) {
+                            courseList = teacher.courseList();
+                            line = line.substring(0, line.length() - 11);
+                            int checker = 0;
+                            for(int i = 0; i < courseList.size(); i++) {
+                                if(courseList.get(i).contains(line)) {
+                                    dos.writeUTF("courseFound");
+                                }
+                                else {
+                                    checker++;
+                                }
+                            }
+                            if(checker == courseList.size()) {
+                                dos.writeUTF("courseNotFound");
+                            }
+                            break;
+
+                        }
+
+                        else if (line.endsWith("courseQuizFile")) {
+                            line = line.substring(0, line.length() - 15);
+                            String[] fromClient = line.split(",");
+                            System.out.println(Arrays.toString(fromClient));
+                            System.out.println(user.getUsername());
+                            ArrayList<String> quizFile = teacher.uploadQuiz(fromClient[1]);
+                            teacher.writeUploadQuiz(fromClient[0], quizFile, user.getUsername());
+                            dos.writeUTF("quizAdded");
+                            break;
+                        }
+                        else if (line.endsWith("quizName")) {
+                            line = line.substring(0, line.length() - 8);
+                            String[] quizNum = line.split(",");
+                            ArrayList<String> quiz = new ArrayList<>();
+                            quiz.add(quizNum[0]);
+
+                            ArrayList<String> input = new ArrayList<>();
+                            input.add(quizNum[1]);
+                            teacher.addQuizTerminal(quizNum[0], user.getUsername(),input);
+                        }
+                        else if(line.endsWith("quizTextUpload")) {
+                            line = line.substring(0, line.length() - 14);
+                            String[] fromClient = line.split(",");
+                            System.out.println(Arrays.toString(fromClient));
+
+                            ArrayList<String> quiz = new ArrayList<String>();
+
+                            // adding elements of array to arrayList.
+                            quiz.add(fromClient[1]);
+                            quiz.add(fromClient[2]);
+                            quiz.add(fromClient[3]);
+                            quiz.add(fromClient[4]);
+                            quiz.add(fromClient[5]);
+
+                           teacher.addQuizTerminal(fromClient[0], user.getUsername(), quiz);
+                           break;
+
+                        }
+
+                        else if(line.endsWith("anotherQ")) {
+                            line = line.substring(0, line.length() - 8);
+                            String[] fromClient = line.split(",");
+                            System.out.println(Arrays.toString(fromClient));
+                            ArrayList<String> quiz = new ArrayList<String>();
+                            System.out.println(quiz);
+//                            quiz.add(fromClient);
                         }
                         else if (line.equals("Exit")) {
                             System.out.println("Client " + this.s + " sends exit...");
